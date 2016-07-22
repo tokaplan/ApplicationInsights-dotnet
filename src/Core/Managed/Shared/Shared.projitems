@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\TraceTelemetry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\IDebugOutput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\ComponentContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\ExceptionDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\HttpWebResponseWrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\TelemetryDebugWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\CloudContext.cs" />
@@ -45,20 +46,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\ExceptionConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Clock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\AppInsightsTypes.g.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\ComponentContextData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\ContextTagKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\ContextTagKeys.g.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\DependencyKind.g.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\DeviceContextData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\InternalContextData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\LocationContextData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\OperationContextData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\PerformanceCounterData.g.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\SessionContextData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\SessionStateData.g.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\SeverityLevel.g.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\Tags.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\UserContextData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\IClock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\InternalContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\IPlatform.cs" />
@@ -77,7 +71,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\TaskTimer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Telemetry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\TelemetryContextExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\ExceptionDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\TelemetryProcessorChain.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\TelemetryProcessorChainBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Tracing\ApplicationNameProvider.cs" />
