@@ -66,10 +66,8 @@ dir .\gbc | ForEach-Object {
 "MessageData_types",
 "MetricData_types",
 "PageViewData_types",
-"PageViewPerfData_types",
 "RemoteDependencyData_types",
 "RequestData_types",
-"SessionState_types",
 "SeverityLevel_types",
 "StackFrame_types",
 "TestResult_types"
@@ -78,7 +76,4 @@ dir .\gbc | ForEach-Object {
     copy ".\gbc\$fileName.cs" "..\src\Core\Managed\Shared\Extensibility\Implementation\External\"
 }
 
-del .\gbc
-del .\packages
-del .\PublicSchema
 
