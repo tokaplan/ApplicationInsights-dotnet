@@ -348,7 +348,7 @@
             var dependency = (DependencyTelemetry)sentTelemetry.Single();
 
             Assert.Equal("name", dependency.Name);
-            Assert.Equal("command name", dependency.CommandName);
+            Assert.Equal("command name", dependency.Data);
             Assert.Equal(timestamp, dependency.Timestamp);
             Assert.Equal(TimeSpan.FromSeconds(42), dependency.Duration);
             Assert.Equal(false, dependency.Success);
@@ -571,6 +571,7 @@
             Assert.Equal("true", ((ISupportProperties)sentTelemetry).Properties["DeveloperMode"]);
         }
 
+#pragma warning disable 618
         [TestMethod]
         public void TrackDoesNotTryAddingDeveloperModeCustomPropertyWhenTelemetryDoesNotSupportCustomProperties()
         {
@@ -580,6 +581,7 @@
 
             Assert.DoesNotThrow(() => client.Track(new SessionStateTelemetry()));
         }
+#pragma warning restore 618
 
         [TestMethod]
         public void TrackAddsTimestampWhenMissing()
@@ -807,7 +809,9 @@
             PageViewTelemetry telemetry6 = new PageViewTelemetry();
             PerformanceCounterTelemetry telemetry7 = new PerformanceCounterTelemetry();
             RequestTelemetry telemetry8 = new RequestTelemetry();
+#pragma warning disable 618
             SessionStateTelemetry telemetry9 = new SessionStateTelemetry();
+#pragma warning restore 618
             TraceTelemetry telemetry10 = new TraceTelemetry();
 
             var telemetryItems = new List<ITelemetry>

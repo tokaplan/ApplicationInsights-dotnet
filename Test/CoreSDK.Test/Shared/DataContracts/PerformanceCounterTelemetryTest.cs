@@ -3,7 +3,6 @@
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Assert = Xunit.Assert;
-    using DataPlatformModel = Microsoft.Developer.Analytics.DataCollection.Model.v2;
 
     [TestClass]
     public class PerformanceCounterTelemetryTest
@@ -16,9 +15,9 @@
             original.CounterName = null;
             original.InstanceName = null;
             ((ITelemetry)original).Sanitize();
-            var item = TelemetryItemTestHelper.SerializeDeserializeTelemetryItem<PerformanceCounterTelemetry, DataPlatformModel.PerformanceCounterData>(original);
+            var item = TelemetryItemTestHelper.SerializeDeserializeTelemetryItem<PerformanceCounterTelemetry, AI.MetricData>(original);
 
-            Assert.Equal(2, item.Data.BaseData.Ver);
+            Assert.Equal(2, item.data.baseData.ver);
         }
 
         [TestMethod]

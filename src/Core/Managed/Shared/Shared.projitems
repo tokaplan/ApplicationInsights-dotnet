@@ -65,7 +65,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Clock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\ContextTagKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\PerformanceCounterData.g.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\SeverityLevel.g.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\Tags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\IClock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\InternalContext.cs" />

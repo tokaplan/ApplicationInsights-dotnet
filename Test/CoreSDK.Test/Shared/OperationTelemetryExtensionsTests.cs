@@ -13,19 +13,6 @@
     public class OperationTelemetryExtensionsTests
     {
         /// <summary>
-        /// Tests the scenario if StartOperation returns operation with telemetry item of same type.
-        /// </summary>
-        [TestMethod]
-        public void OperationTelemetryStartInitializesTimeStampAndStartTimeToTelemetry()
-        {
-            var telemetry = new DependencyTelemetry();
-            Assert.Equal(telemetry.StartTime, DateTimeOffset.MinValue);
-            Assert.Equal(telemetry.Timestamp, DateTimeOffset.MinValue);
-            telemetry.Start();
-            Assert.Equal(telemetry.StartTime, telemetry.Timestamp);
-        }
-
-        /// <summary>
         /// Tests the scenario if Stop does not change start time and timestamp after start is called.
         /// </summary>
         [TestMethod]
@@ -36,7 +23,6 @@
             DateTimeOffset actualTime = telemetry.Timestamp;
             telemetry.Stop();
             Assert.Equal(actualTime, telemetry.Timestamp);
-            Assert.Equal(actualTime, telemetry.StartTime);
         }
 
         /// <summary>
@@ -61,8 +47,7 @@
         {
             var telemetry = new DependencyTelemetry();
             telemetry.Stop();
-            Assert.NotEqual(DateTimeOffset.MinValue, telemetry.StartTime);
-            Assert.Equal(telemetry.StartTime, telemetry.Timestamp);
+            Assert.NotEqual(DateTimeOffset.MinValue, telemetry.Timestamp);
             Assert.Equal(telemetry.Duration, TimeSpan.Zero);
         }
     }

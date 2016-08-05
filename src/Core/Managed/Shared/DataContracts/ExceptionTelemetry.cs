@@ -31,7 +31,6 @@
         {
             this.Data = new ExceptionData();
             this.context = new TelemetryContext(this.Data.properties);
-            this.HandledAt = default(ExceptionHandledAt);
         }
 
         /// <summary>
@@ -70,10 +69,11 @@
         /// <summary>
         /// Gets or sets the value indicated where the exception was handled.
         /// </summary>
+        [Obsolete("Use custom properties to indicate where the exception was handled.")]
         public ExceptionHandledAt HandledAt
         {
-            get { return this.ValidateExceptionHandledAt(this.Data.handledAt); }
-            set { this.Data.handledAt = value.ToString(); }
+            get { return this.ValidateExceptionHandledAt(this.Data.properties["handledAt"]); }
+            set { this.Data.properties["handledAt"] = value.ToString(); }
         }
         
         /// <summary>

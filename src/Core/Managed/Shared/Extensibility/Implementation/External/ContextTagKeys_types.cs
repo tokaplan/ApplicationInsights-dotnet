@@ -96,6 +96,11 @@ namespace Microsoft.ApplicationInsights.Extensibility.Implementation.External
         
         
         
+        public string OperationCorrelationVector { get; set; }
+
+        
+        
+        
         public string SessionId { get; set; }
 
         
@@ -162,6 +167,7 @@ namespace Microsoft.ApplicationInsights.Extensibility.Implementation.External
             OperationName = "ai.operation.name";
             OperationParentId = "ai.operation.parentId";
             OperationSyntheticSource = "ai.operation.syntheticSource";
+            OperationCorrelationVector = "ai.operation.correlationVector";
             SessionId = "ai.session.id";
             SessionIsFirst = "ai.session.isFirst";
             UserAccountId = "ai.user.accountId";

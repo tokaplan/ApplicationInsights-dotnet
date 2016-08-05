@@ -254,11 +254,13 @@
                 RequestTelemetry requestTelemetry = telemetryItem as RequestTelemetry;
                 SerializeRequestTelemetry(requestTelemetry, jsonWriter);
             }
+#pragma warning disable 618
             else if (telemetryItem is SessionStateTelemetry)
             {
                 SessionStateTelemetry sessionStateTelemetry = telemetryItem as SessionStateTelemetry;
-                SerializeSessionStateTelemetry(sessionStateTelemetry, jsonWriter);
+                SerializeTelemetryItem(sessionStateTelemetry.EventTelemetry, jsonWriter);
             }
+#pragma warning restore 618
             else if (telemetryItem is TraceTelemetry)
             {
                 TraceTelemetry traceTelemetry = telemetryItem as TraceTelemetry;
@@ -343,9 +345,6 @@
                     writer.WriteStartObject();
 
                     writer.WriteProperty("ver", exceptionTelemetry.Data.ver);
-                    writer.WriteProperty(
-                        "handledAt",
-                        Utils.PopulateRequiredStringValue(exceptionTelemetry.Data.handledAt, "handledAt", typeof(ExceptionTelemetry).FullName));
                     writer.WriteProperty("properties", exceptionTelemetry.Data.properties);
                     writer.WriteProperty("measurements", exceptionTelemetry.Data.measurements);
                     writer.WritePropertyName("exceptions");
@@ -461,17 +460,17 @@
                 {
                     writer.WriteStartObject();
 
-                    writer.WriteProperty("ver", dependencyTelemetry.Data.ver);
-                    writer.WriteProperty("name", dependencyTelemetry.Data.name);
-                    writer.WriteProperty("id", dependencyTelemetry.Data.id);
-                    writer.WriteProperty("commandName", dependencyTelemetry.Data.commandName);
-                    writer.WriteProperty("value", dependencyTelemetry.Data.value);
-                    writer.WriteProperty("resultCode", dependencyTelemetry.Data.resultCode);
-                    writer.WriteProperty("dependencyKind", (int)dependencyTelemetry.Data.dependencyKind);
-                    writer.WriteProperty("success", dependencyTelemetry.Data.success);
-                    writer.WriteProperty("dependencyTypeName", dependencyTelemetry.Data.dependencyTypeName);
+                    writer.WriteProperty("ver", dependencyTelemetry.InternalData.ver);
+                    writer.WriteProperty("name", dependencyTelemetry.InternalData.name);
+                    writer.WriteProperty("id", dependencyTelemetry.InternalData.id);
+                    writer.WriteProperty("data", dependencyTelemetry.InternalData.data);
+                    writer.WriteProperty("target", dependencyTelemetry.InternalData.target);
+                    writer.WriteProperty("duration", dependencyTelemetry.InternalData.duration);
+                    writer.WriteProperty("resultCode", dependencyTelemetry.InternalData.resultCode);
+                    writer.WriteProperty("success", dependencyTelemetry.InternalData.success);
+                    writer.WriteProperty("dependencyTypeName", dependencyTelemetry.InternalData.dependencyTypeName);
 
-                    writer.WriteProperty("properties", dependencyTelemetry.Data.properties);
+                    writer.WriteProperty("properties", dependencyTelemetry.InternalData.properties);
                     writer.WriteEndObject();
                 }
 
@@ -504,8 +503,8 @@
                     jsonWriter.WriteProperty("success", requestTelemetry.Data.success);
                     jsonWriter.WriteProperty("responseCode", requestTelemetry.Data.responseCode);
                     jsonWriter.WriteProperty("url", requestTelemetry.Data.url);
+                    jsonWriter.WriteProperty("source", requestTelemetry.Data.source);
                     jsonWriter.WriteProperty("measurements", requestTelemetry.Data.measurements);
-                    jsonWriter.WriteProperty("httpMethod", requestTelemetry.Data.httpMethod);
                     jsonWriter.WriteProperty("properties", requestTelemetry.Data.properties);
 
                     jsonWriter.WriteEndObject();
@@ -517,33 +516,6 @@
             jsonWriter.WriteEndObject();
         }
 
-        private static void SerializeSessionStateTelemetry(SessionStateTelemetry sessionStateTelemetry, JsonWriter jsonWriter)
-        {
-            jsonWriter.WriteStartObject();
-
-            sessionStateTelemetry.WriteEnvelopeProperties(jsonWriter);
-            sessionStateTelemetry.WriteTelemetryName(jsonWriter, SessionStateTelemetry.TelemetryName);
-            jsonWriter.WritePropertyName("data");
-            {
-                jsonWriter.WriteStartObject();
-
-                jsonWriter.WriteProperty("baseType", typeof(SessionStateData).Name);
-                jsonWriter.WritePropertyName("baseData");
-                {
-                    jsonWriter.WriteStartObject();
-
-                    jsonWriter.WriteProperty("ver", 2);
-                    jsonWriter.WriteProperty("state", sessionStateTelemetry.State.ToString());
-
-                    jsonWriter.WriteEndObject();
-                }
-
-                jsonWriter.WriteEndObject();
-            }
-
-            jsonWriter.WriteEndObject();
-        }
-        
         private static void SerializeTraceTelemetry(TraceTelemetry traceTelemetry, JsonWriter writer)
         {
             writer.WriteStartObject();

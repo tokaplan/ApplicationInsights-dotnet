@@ -7,8 +7,6 @@ namespace Microsoft.ApplicationInsights.DataContracts
     using Microsoft.ApplicationInsights.Extensibility.Implementation;
     using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
 
-    using BondDependencyKind = Extensibility.Implementation.External.DependencyKind;
-
     /// <summary>
     /// The class that represents information about the collected dependency.
     /// </summary>
@@ -18,7 +16,8 @@ namespace Microsoft.ApplicationInsights.DataContracts
 
         internal readonly string BaseType = typeof(RemoteDependencyData).Name;
 
-        internal readonly RemoteDependencyData Data;
+        internal readonly RemoteDependencyData InternalData;
+
         private readonly TelemetryContext context;
 
         private double? samplingPercentage;
@@ -28,9 +27,8 @@ namespace Microsoft.ApplicationInsights.DataContracts
         /// </summary>
         public DependencyTelemetry()
         {
-            this.Data = new RemoteDependencyData() { kind = DataPointType.Aggregation };
-            this.context = new TelemetryContext(this.Data.properties);
-            this.Data.dependencyKind = BondDependencyKind.Other;
+            this.InternalData = new RemoteDependencyData();
+            this.context = new TelemetryContext(this.InternalData.properties);
             this.Id = Convert.ToBase64String(BitConverter.GetBytes(WeakConcurrentRandom.Instance.Next()));
         }
 
@@ -42,10 +40,10 @@ namespace Microsoft.ApplicationInsights.DataContracts
             : this()
         {
             this.Name = dependencyName;
-            this.CommandName = commandName;
+            this.Data = commandName;
             this.Duration = duration;
             this.Success = success;
-            this.StartTime = startTime;
+            this.Timestamp = startTime;
         }
 
         /// <summary>
@@ -71,8 +69,8 @@ namespace Microsoft.ApplicationInsights.DataContracts
         /// </summary>  
         public override string Id
         {
-            get { return this.Data.id; }
-            set { this.Data.id = value; }
+            get { return this.InternalData.id; }
+            set { this.InternalData.id = value; }
         }
 
         /// <summary>
@@ -80,8 +78,8 @@ namespace Microsoft.ApplicationInsights.DataContracts
         /// </summary>
         public string ResultCode
         {
-            get { return this.Data.resultCode; }
-            set { this.Data.resultCode = value; }
+            get { return this.InternalData.resultCode; }
+            set { this.InternalData.resultCode = value; }
         }
 
         /// <summary>
@@ -89,17 +87,27 @@ namespace Microsoft.ApplicationInsights.DataContracts
         /// </summary>
         public override string Name
         {
-            get { return this.Data.name; }
-            set { this.Data.name = value; }
+            get { return this.InternalData.name; }
+            set { this.InternalData.name = value; }
         }
 
         /// <summary>
         /// Gets or sets text of SQL command or empty it not applicable.
         /// </summary>
+        [Obsolete("Use Data property.")]
         public string CommandName
         {
-            get { return this.Data.commandName; }
-            set { this.Data.commandName = value; }
+            get { return this.InternalData.data; }
+            set { this.InternalData.data = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets text of SQL command or empty it not applicable.
+        /// </summary>
+        public string Data
+        {
+            get { return this.InternalData.data; }
+            set { this.InternalData.data = value; }
         }
 
         /// <summary>
@@ -107,13 +115,14 @@ namespace Microsoft.ApplicationInsights.DataContracts
         /// </summary>
         public string DependencyTypeName
         {
-            get { return this.Data.dependencyTypeName;  }
-            set { this.Data.dependencyTypeName = value; }
+            get { return this.InternalData.dependencyTypeName;  }
+            set { this.InternalData.dependencyTypeName = value; }
         }
 
         /// <summary>
         /// Gets or sets the date and time when dependency was called by the application.
         /// </summary>
+        [Obsolete("Use telemetry Timestamp property instead.")]
         public override DateTimeOffset StartTime 
         {
             get { return this.Timestamp; }
@@ -125,8 +134,8 @@ namespace Microsoft.ApplicationInsights.DataContracts
         /// </summary>
         public override TimeSpan Duration
         {
-            get { return TimeSpan.FromMilliseconds(this.Data.value); }
-            set { this.Data.value = value.TotalMilliseconds; }
+            get { return Utils.ValidateDuration(this.InternalData.duration); }
+            set { this.InternalData.duration = value.ToString(); }
         }
 
         /// <summary>
@@ -134,8 +143,8 @@ namespace Microsoft.ApplicationInsights.DataContracts
         /// </summary>
         public override bool? Success
         {
-            get { return this.Data.success; }
-            set { this.Data.success = value; }
+            get { return this.InternalData.success; }
+            set { this.InternalData.success = value; }
         }
 
         /// <summary>
@@ -143,24 +152,24 @@ namespace Microsoft.ApplicationInsights.DataContracts
         /// </summary>
         public override IDictionary<string, string> Properties
         {
-            get { return this.Data.properties; }
+            get { return this.InternalData.properties; }
         }
 
         /// <summary>
         /// Gets or sets the dependency kind, like SQL, HTTP, Azure, etc.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Use DependencyTypeName instead.")]
         public string DependencyKind
         {
             get
             {
-                return this.Data.dependencyKind.ToString();
+                return this.InternalData.dependencyTypeName;
             }
 
             set
             {
-                BondDependencyKind result;
-                this.Data.dependencyKind = Enum.TryParse(value, true, out result) ? result : BondDependencyKind.Other;
+                this.InternalData.dependencyTypeName = value;
             }
         }
 
@@ -183,7 +192,7 @@ namespace Microsoft.ApplicationInsights.DataContracts
             this.Id.SanitizeName();
             this.ResultCode = this.ResultCode.SanitizeValue();
             this.DependencyTypeName = this.DependencyTypeName.SanitizeDependencyType();
-            this.CommandName = this.CommandName.SanitizeCommandName();
+            this.Data = this.Data.SanitizeCommandName();
             this.Properties.SanitizeProperties();
         }
     }

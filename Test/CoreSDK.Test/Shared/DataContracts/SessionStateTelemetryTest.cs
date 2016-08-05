@@ -1,18 +1,17 @@
 ﻿namespace Microsoft.ApplicationInsights.DataContracts
 {
     using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.Developer.Analytics.DataCollection.Model.v2;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Assert = Xunit.Assert;
-    using DataPlatformModel = Microsoft.Developer.Analytics.DataCollection.Model.v2;
 
     [TestClass]
     public class SessionStateTelemetryTest
     {
+#pragma warning disable 618
         [TestMethod]
         public void SessionStateTelemetryImplementsITelemetryContract()
         {
-            var test = new ITelemetryTest<SessionStateTelemetry, DataPlatformModel.SessionStateData>();
+            var test = new ITelemetryTest<SessionStateTelemetry, AI.EventData>();
             test.Run();
         }
 
@@ -49,9 +48,10 @@
         public void SerializeWritesStateAsExpectedByEndpoint()
         {
             var telemetry = new SessionStateTelemetry { State = SessionState.End };
-            TelemetryItem<SessionStateData> envelope = TelemetryItemTestHelper.SerializeDeserializeTelemetryItem<SessionStateTelemetry, SessionStateData>(telemetry);
-            Assert.Equal(DataPlatformModel.SessionState.End, envelope.Data.BaseData.State);
-            Assert.Equal(2, envelope.Data.BaseData.Ver);
+            AI.TelemetryItem<AI.EventData> envelope = TelemetryItemTestHelper.SerializeDeserializeTelemetryItem<SessionStateTelemetry, AI.EventData>(telemetry);
+            Assert.Equal("End", envelope.data.baseData.properties["State"]);
+            Assert.Equal(2, envelope.data.baseData.ver);
         }
+#pragma warning restore 618
     }
 }

@@ -156,6 +156,7 @@
                     telemetryItem.Data,
                     Keywords.PageViews);
             }
+#pragma warning disable 618
             else if (item is SessionStateTelemetry)
             {
                 if (!this.EventSourceInternal.IsEnabled(EventLevel.Verbose, Keywords.SessionState))
@@ -163,14 +164,15 @@
                     return;
                 }
 
-                var telemetryItem = item as SessionStateTelemetry;
+                var telemetryItem = (item as SessionStateTelemetry).EventTelemetry;
                 this.WriteEvent(
-                    SessionStateTelemetry.TelemetryName,
+                    EventTelemetry.TelemetryName,
                     telemetryItem.Context.InstrumentationKey,
                     telemetryItem.Context.Tags,
                     telemetryItem.Data,
-                    Keywords.SessionState);
+                    Keywords.Events);
             }
+#pragma warning restore 618
             else
             {
                 string msg = string.Format(CultureInfo.InvariantCulture, "Unknown telemetry type: {0}", item.GetType());

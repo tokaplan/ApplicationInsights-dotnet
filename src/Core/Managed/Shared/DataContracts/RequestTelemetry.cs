@@ -44,7 +44,7 @@
             : this()
         {
             this.Name = name; // Name is optional but without it UX does not make much sense
-            this.StartTime = startTime;
+            this.Timestamp = startTime;
             this.Duration = duration;
             this.ResponseCode = responseCode;
             this.Success = success;
@@ -55,17 +55,18 @@
         /// </summary>
         public override DateTimeOffset Timestamp
         {
-            get { return this.ValidateDateTimeOffset(this.Data.startTime); }
-            set { this.Data.startTime = value.ToString("o", CultureInfo.InvariantCulture); }
+            get;
+            set;
         }
 
         /// <summary>
         /// Gets or sets the date and time when request was processed by the application.
         /// </summary>
+        [Obsolete("Use telemetry Timestamp property instead.")]
         public override DateTimeOffset StartTime
         {
-            get { return this.ValidateDateTimeOffset(this.Data.startTime); }
-            set { this.Data.startTime = value.ToString("o", CultureInfo.InvariantCulture); }
+            get { return this.Timestamp; }
+            set { this.Timestamp = value; }
         }
 
         /// <summary>
@@ -189,8 +190,8 @@
         /// </summary>
         public string HttpMethod
         {
-            get { return this.Data.httpMethod; }
-            set { this.Data.httpMethod = value; }
+            get { return this.Data.properties["httpMethod"]; }
+            set { this.Data.properties["httpMethod"] = value; }
         }
 
         /// <summary>

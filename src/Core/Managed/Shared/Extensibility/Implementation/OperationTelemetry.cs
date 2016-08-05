@@ -13,6 +13,7 @@
         /// <summary>
         /// Gets or sets the start time of the operation.
         /// </summary>
+        [Obsolete("Use telemetry Timestamp property instead.")]
         public abstract DateTimeOffset StartTime { get; set;  }
 
         /// <summary>  
