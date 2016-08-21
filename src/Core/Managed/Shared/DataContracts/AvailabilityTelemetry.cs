@@ -137,6 +137,14 @@
         }
 
         /// <summary>
+        /// Gets a dictionary of application-defined event metrics.
+        /// </summary>
+        public IDictionary<string, double> Metrics
+        {
+            get { return this.Data.measurements; }
+        }
+
+        /// <summary>
         /// Gets or sets date and time when telemetry was recorded.
         /// </summary>
         public DateTimeOffset Timestamp

@@ -186,6 +186,14 @@ namespace Microsoft.ApplicationInsights.DataContracts
         }
 
         /// <summary>
+        /// Gets a dictionary of application-defined event metrics.
+        /// </summary>
+        public IDictionary<string, double> Metrics
+        {
+            get { return this.InternalData.measurements; }
+        }
+
+        /// <summary>
         /// Gets or sets the dependency kind, like SQL, HTTP, Azure, etc.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
