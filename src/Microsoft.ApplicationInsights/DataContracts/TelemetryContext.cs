@@ -57,6 +57,11 @@
         }
 
         /// <summary>
+        /// Gets or sets flags
+        /// </summary>
+        public long Flags { get; set; }
+
+        /// <summary>
         /// Gets the object describing the component tracked by this <see cref="TelemetryContext"/>.
         /// </summary>
         public ComponentContext Component
@@ -160,6 +165,7 @@
         internal void Initialize(TelemetryContext source, string instrumentationKey)
         {
             Property.Initialize(ref this.instrumentationKey, instrumentationKey);
+            this.Flags |= source.Flags;
 
             source.component?.CopyTo(this.Component);
             source.device?.CopyTo(this.Device);
