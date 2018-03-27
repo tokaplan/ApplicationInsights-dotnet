@@ -11,12 +11,12 @@
 
     /// <summary>
     /// Extracts auto-collected, pre-aggregated (aka. "standard") metrics from telemetry.
-    /// Metric Extractors participate in the telemetry pipeline as telemetry processors. They examine telemetry items going through
+    /// MetricV1 Extractors participate in the telemetry pipeline as telemetry processors. They examine telemetry items going through
     /// the pipeline and create pre-aggregated metrics based on the encountered items. The metrics can be anything. For example, one may
     /// choose to extract a metric for "Request Duration" from RequestTelemetry items. Or one may choose to create a metric "Cows Sold"
     /// from specific user-tracked EventTelemetry items that contain respective information. 
     /// <br />
-    /// Metric Extractors should be placed into the pipeline after telemetry initializers and before any telemetry processors that may
+    /// MetricV1 Extractors should be placed into the pipeline after telemetry initializers and before any telemetry processors that may
     /// perform any kind of filtering, e.g. before any sampling processors. Placing metric extractors after any filters will prevent them
     /// from seeing all potentially relevant telemetry which will skew the extracted metrics.
     /// <br />

@@ -13,7 +13,7 @@
     /// </summary>
     public sealed class MetricTelemetry : ITelemetry, ISupportProperties
     {
-        internal const string TelemetryName = "Metric";
+        internal const string TelemetryName = "MetricV1";
 
         internal readonly string BaseType = typeof(MetricData).Name;
 
@@ -56,7 +56,7 @@
         /// <remarks>
         /// To send metrics, collect your metric events over an aggregation interval of 1 minute.
         /// </remarks>
-        /// <param name="name">Metric name.</param>
+        /// <param name="name">MetricV1 name.</param>
         /// <param name="count">Count of values taken during aggregation interval.</param>
         /// <param name="sum">Sum of values taken during aggregation interval.</param>
         /// <param name="min">Minimum value taken during aggregation interval.</param>

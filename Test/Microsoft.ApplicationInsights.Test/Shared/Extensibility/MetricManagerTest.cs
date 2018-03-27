@@ -23,14 +23,14 @@
             using (MetricManagerV1 manager = new MetricManagerV1(client))
             {
                 // Act
-                Metric metric = manager.CreateMetric("Test Metric");
+                MetricV1 metric = manager.CreateMetric("Test MetricV1");
                 metric.Track(42);
             }
 
             // Assert (single metric aggregation exists in the output)
             var aggregatedMetric = (MetricTelemetry)sentTelemetry.Single();
 
-            Assert.AreEqual("Test Metric", aggregatedMetric.Name);
+            Assert.AreEqual("Test MetricV1", aggregatedMetric.Name);
 
             Assert.AreEqual(1, aggregatedMetric.Count);
             Assert.AreEqual(42, aggregatedMetric.Sum);
@@ -50,14 +50,14 @@
             using (MetricManagerV1 manager = new MetricManagerV1(client))
             {
                 // Act
-                Metric metric = manager.CreateMetric("Test Metric", null);
+                MetricV1 metric = manager.CreateMetric("Test MetricV1", null);
                 metric.Track(42);
             }
 
             // Assert
             var aggregatedMetric = (MetricTelemetry)sentTelemetry.Single();
 
-            Assert.AreEqual("Test Metric", aggregatedMetric.Name);
+            Assert.AreEqual("Test MetricV1", aggregatedMetric.Name);
 
             Assert.AreEqual(1, aggregatedMetric.Count);
             Assert.AreEqual(42, aggregatedMetric.Sum);
@@ -82,14 +82,14 @@
             using (MetricManagerV1 manager = new MetricManagerV1(client))
             {
                 // Act
-                Metric metric = manager.CreateMetric("Test Metric", dimensions);
+                MetricV1 metric = manager.CreateMetric("Test MetricV1", dimensions);
                 metric.Track(42);
             }
 
             // Assert
             var aggregatedMetric = (MetricTelemetry)sentTelemetry.Single();
 
-            Assert.AreEqual("Test Metric", aggregatedMetric.Name);
+            Assert.AreEqual("Test MetricV1", aggregatedMetric.Name);
 
             Assert.AreEqual(1, aggregatedMetric.Count);
             Assert.AreEqual(42, aggregatedMetric.Sum);
@@ -110,7 +110,7 @@
             var client = this.InitializeTelemetryClient(sentTelemetry);
             using (MetricManagerV1 manager = new MetricManagerV1(client))
             {
-                Metric metric = manager.CreateMetric("Test Metric");
+                MetricV1 metric = manager.CreateMetric("Test MetricV1");
 
                 // Act
                 metric.Track(42);
@@ -119,7 +119,7 @@
             // Assert
             var aggregatedMetric = (MetricTelemetry)sentTelemetry.Single();
 
-            Assert.AreEqual("Test Metric", aggregatedMetric.Name);
+            Assert.AreEqual("Test MetricV1", aggregatedMetric.Name);
 
             Assert.AreEqual(1, aggregatedMetric.Count);
             Assert.AreEqual(1, aggregatedMetric.Properties.Count);
@@ -136,7 +136,7 @@
             var client = this.InitializeTelemetryClient(sentTelemetry);
             using (MetricManagerV1 manager = new MetricManagerV1(client))
             {
-                Metric metric = manager.CreateMetric("Test Metric");
+                MetricV1 metric = manager.CreateMetric("Test MetricV1");
 
                 // Act
                 metric.Track(42);
@@ -145,7 +145,7 @@
             // Assert
             var aggregatedMetric = (MetricTelemetry)sentTelemetry.Single();
 
-            Assert.AreEqual("Test Metric", aggregatedMetric.Name);
+            Assert.AreEqual("Test MetricV1", aggregatedMetric.Name);
 
             Assert.AreEqual(1, aggregatedMetric.Count);
             Assert.AreEqual(1, aggregatedMetric.Properties.Count);
@@ -162,8 +162,8 @@
 
             var client = this.InitializeTelemetryClient(sentTelemetry);
 
-            Metric metric1 = null;
-            Metric metric2 = null;
+            MetricV1 metric1 = null;
+            MetricV1 metric2 = null;
 
             using (MetricManagerV1 manager = new MetricManagerV1(client))
             {
@@ -171,8 +171,8 @@
                 // snapshot after first got created but before the second
                 for (int i = 0; i < 2; i++)
                 {
-                    metric1 = manager.CreateMetric("Test Metric");
-                    metric2 = manager.CreateMetric("Test Metric");
+                    metric1 = manager.CreateMetric("Test MetricV1");
+                    metric2 = manager.CreateMetric("Test MetricV1");
 
                     // Act
                     metric1.Track(10);
@@ -220,7 +220,7 @@
             var client = this.InitializeTelemetryClient(sentTelemetry);
             using (MetricManagerV1 manager = new MetricManagerV1(client))
             {
-                Metric metric = manager.CreateMetric("Test Metric");
+                MetricV1 metric = manager.CreateMetric("Test MetricV1");
 
                 metric.Track(42);
 
@@ -244,7 +244,7 @@
             var client = this.InitializeTelemetryClient(sentTelemetry);
             using (MetricManagerV1 manager = new MetricManagerV1(client))
             {
-                Metric metric = manager.CreateMetric("Test Metric");
+                MetricV1 metric = manager.CreateMetric("Test MetricV1");
 
                 metric.Track(42);
 

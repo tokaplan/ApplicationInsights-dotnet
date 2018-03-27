@@ -143,7 +143,7 @@
             client.TrackMetric(
                 new MetricTelemetry()
                 {
-                    Name = "Test Metric",
+                    Name = "Test MetricV1",
                     Count = 5,
                     Sum = 40,
                     Min = 3.0,
@@ -153,7 +153,7 @@
 
             var metric = (MetricTelemetry)sentTelemetry.Single();
 
-            Assert.AreEqual("Test Metric", metric.Name);
+            Assert.AreEqual("Test MetricV1", metric.Name);
             Assert.AreEqual(5, metric.Count);
             Assert.AreEqual(40, metric.Sum);
             Assert.AreEqual(3.0, metric.Min);

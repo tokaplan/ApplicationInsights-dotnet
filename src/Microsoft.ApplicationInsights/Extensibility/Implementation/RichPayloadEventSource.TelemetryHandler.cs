@@ -58,7 +58,7 @@ namespace Microsoft.ApplicationInsights.Extensibility.Implementation
                 // Dependency
                 telemetryHandlers.Add(typeof(DependencyTelemetry), this.CreateHandlerForDependencyTelemetry(eventSource, writeGenericMethod, eventSourceOptionsType, eventSourceOptionsKeywordsProperty));
 
-                // Metric
+                // MetricV1
                 telemetryHandlers.Add(typeof(MetricTelemetry), this.CreateHandlerForMetricTelemetry(eventSource, writeGenericMethod, eventSourceOptionsType, eventSourceOptionsKeywordsProperty));
 
                 // Exception

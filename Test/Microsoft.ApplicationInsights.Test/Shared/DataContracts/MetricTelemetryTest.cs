@@ -37,9 +37,9 @@
         [TestMethod]
         public void MetricTelemetrySuppliesConstructorThatTakesNameAndValueToSimplifyAdvancedScenarios()
         {
-            var instance = new MetricTelemetry("Test Metric", 4.2);
+            var instance = new MetricTelemetry("Test MetricV1", 4.2);
 
-            Assert.AreEqual("Test Metric", instance.Name);
+            Assert.AreEqual("Test MetricV1", instance.Name);
             Assert.AreEqual(4.2, instance.Value);
         }
 #pragma warning restore CS0618
@@ -48,7 +48,7 @@
         public void MetricTelemetrySuppliesPropertiesForCustomerToSendAggregatedMetric()
         {
 #pragma warning disable CS0618
-            var instance = new MetricTelemetry("Test Metric", 4.2);
+            var instance = new MetricTelemetry("Test MetricV1", 4.2);
 #pragma warning restore CS0618
 
             instance.Count = 5;
@@ -99,14 +99,14 @@
         public void MetricTelemetrySuppliesConstructorThatAllowsToFullyPopulateAggregationData()
         {
             var instance = new MetricTelemetry(
-                name: "Test Metric", 
+                name: "Test MetricV1", 
                 count: 4, 
                 sum: 40, 
                 min: 5, 
                 max: 15, 
                 standardDeviation: 4.2);
 
-            Assert.AreEqual("Test Metric", instance.Name);
+            Assert.AreEqual("Test MetricV1", instance.Name);
             Assert.AreEqual(4, instance.Count);
             Assert.AreEqual(40, instance.Sum);
             Assert.AreEqual(5, instance.Min);
@@ -119,14 +119,14 @@
         {
             var instance = new MetricTelemetry();
 
-            instance.Name = "Test Metric";
+            instance.Name = "Test MetricV1";
             instance.Count = 4;
             instance.Sum = 40;
             instance.Min = 5.0;
             instance.Max = 15.0;
             instance.StandardDeviation = 4.2;
 
-            Assert.AreEqual("Test Metric", instance.Name);
+            Assert.AreEqual("Test MetricV1", instance.Name);
             Assert.AreEqual(4, instance.Count);
             Assert.AreEqual(40, instance.Sum);
             Assert.AreEqual(5, instance.Min);

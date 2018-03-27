@@ -212,10 +212,10 @@
         }
 
         /// <summary>
-        /// Send a <see cref="MetricTelemetry"/> for aggregation in Metric Explorer.
+        /// Send a <see cref="MetricTelemetry"/> for aggregation in MetricV1 Explorer.
         /// </summary>
-        /// <param name="name">Metric name.</param>
-        /// <param name="value">Metric value.</param>
+        /// <param name="name">MetricV1 name.</param>
+        /// <param name="value">MetricV1 value.</param>
         /// <param name="properties">Named string values you can use to classify and filter metrics.</param>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void TrackMetric(string name, double value, IDictionary<string, string> properties = null)

@@ -224,7 +224,7 @@
             else if (telemetryType == typeof(PerformanceCounterTelemetry))
             {
                 // handle TraceTelemetry separately
-                result = "Metric";
+                result = "MetricV1";
             }
 #pragma warning restore 618
             else

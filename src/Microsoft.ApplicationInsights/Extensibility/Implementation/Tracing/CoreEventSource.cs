@@ -397,7 +397,7 @@
 
         // Verbosity is Error - so it is always sent to portal; Keyword is Diagnostics so throttling is not applied.
         [Event(33,
-            Message = "A Metric Extractor detected a telemetry item with SamplingPercentage < 100. Metrics Extractors should be used before Sampling Processors or any other Telemetry Processors that might filter out Telemetry Items. Otherwise, extracted metrics may be incorrect.",
+            Message = "A MetricV1 Extractor detected a telemetry item with SamplingPercentage < 100. Metrics Extractors should be used before Sampling Processors or any other Telemetry Processors that might filter out Telemetry Items. Otherwise, extracted metrics may be incorrect.",
             Level = EventLevel.Error,
             Keywords = Keywords.Diagnostics | Keywords.UserActionable)]
         public void MetricExtractorAfterSamplingError(string appDomainName = "Incorrect")
@@ -407,7 +407,7 @@
 
         // Verbosity is Verbose - targeted at support personnel; Keyword is Diagnostics so throttling is not applied.
         [Event(34,
-            Message = "A Metric Extractor detected a telemetry item with SamplingPercentage < 100. Metrics Extractors Extractor should be used before Sampling Processors or any other Telemetry Processors that might filter out Telemetry Items. Otherwise, extracted metrics may be incorrect.",
+            Message = "A MetricV1 Extractor detected a telemetry item with SamplingPercentage < 100. Metrics Extractors Extractor should be used before Sampling Processors or any other Telemetry Processors that might filter out Telemetry Items. Otherwise, extracted metrics may be incorrect.",
             Level = EventLevel.Verbose,
             Keywords = Keywords.Diagnostics | Keywords.UserActionable)]
         public void MetricExtractorAfterSamplingVerbose(string appDomainName = "Incorrect")

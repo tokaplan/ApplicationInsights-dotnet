@@ -81,7 +81,7 @@
         /// <summary>
         /// Adds a value to the time series.
         /// </summary>
-        /// <param name="value">Metric value.</param>
+        /// <param name="value">MetricV1 value.</param>
         public void Track(double value)
         {
             bool lockAcquired = false;

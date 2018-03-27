@@ -8,8 +8,8 @@
         /// <summary>
         /// Process metric value.
         /// </summary>
-        /// <param name="metric">Metric definition.</param>
-        /// <param name="value">Metric value.</param>
-        void Track(Metric metric, double value);
+        /// <param name="metric">MetricV1 definition.</param>
+        /// <param name="value">MetricV1 value.</param>
+        void Track(MetricV1 metric, double value);
     }
 }
