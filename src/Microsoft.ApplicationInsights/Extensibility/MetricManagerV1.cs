@@ -18,7 +18,7 @@
     /// Metric factory and controller. Sends metrics to Application Insights service. Pre-aggregates metrics to reduce bandwidth.
     /// <a href="https://go.microsoft.com/fwlink/?linkid=525722#send-metrics">Learn more</a>
     /// </summary>
-    internal sealed class MetricManager : IDisposable
+    internal sealed class MetricManagerV1 : IDisposable
     {
         /// <summary>
         /// Value of the property indicating 'app insights version' allowing to tell metric was built using metric manager.
@@ -53,7 +53,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MetricManager"/> class.
         /// </summary>
-        public MetricManager()
+        public MetricManagerV1()
             : this(new TelemetryClient())
         {
         }
@@ -62,7 +62,7 @@
         /// Initializes a new instance of the <see cref="MetricManager"/> class.
         /// </summary>
         /// <param name="client">Telemetry client to use to output aggregated metric data.</param>
-        public MetricManager(TelemetryClient client)
+        public MetricManagerV1(TelemetryClient client)
         {
             this.telemetryClient = client ?? new TelemetryClient();
 
@@ -78,7 +78,7 @@
         /// Gets a list of metric processors associated
         /// with this instance of <see cref="MetricManager"/>.
         /// </summary>
-        internal IList<IMetricProcessor> MetricProcessors
+        internal IList<IMetricProcessorV1> MetricProcessors
         {
             get
             {

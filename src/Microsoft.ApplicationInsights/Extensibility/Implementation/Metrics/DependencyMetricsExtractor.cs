@@ -38,9 +38,9 @@
         public const int MaxDependenctTypesToDiscoverDefault = 15;
 
         /// <summary>
-        /// The <c>MetricManager</c> to be used for creating and sending the metrics by this extractor.
+        /// The <c>MetricManagerV1</c> to be used for creating and sending the metrics by this extractor.
         /// </summary>
-        private MetricManager metricManager = null;
+        private MetricManagerV1 metricManager = null;
 
         /// <summary>
         /// Groups privates to ensure atomic updates via replacements.
@@ -96,8 +96,8 @@
         /// <summary>
         /// Initializes the internal metrics trackers based on settings.
         /// </summary>
-        /// <param name="metricManager">The <c>MetricManager</c> to be used for creating and sending the metrics by this extractor.</param>
-        public void InitializeExtractor(MetricManager metricManager)
+        /// <param name="metricManager">The <c>MetricManagerV1</c> to be used for creating and sending the metrics by this extractor.</param>
+        public void InitializeExtractor(MetricManagerV1 metricManager)
         {
             this.metricManager = metricManager;
             this.ReinitializeMetrics(this.metrics?.MaxDependencyTypesToDiscover ?? MaxDependenctTypesToDiscoverDefault);
@@ -118,10 +118,10 @@
                 return;
             }
 
-            MetricManager thisMetricManager = this.metricManager;
+            MetricManagerV1 thisMetricManager = this.metricManager;
             MetricsCache thisMetrics = this.metrics;
 
-            //// If there is no MetricManager, then this extractor has not been properly initialized yet:
+            //// If there is no MetricManagerV1, then this extractor has not been properly initialized yet:
             if (thisMetricManager == null)
             {
                 //// This will be caught and properly logged by the base class:
@@ -255,7 +255,7 @@
         /// <param name="maxDependencyTypesToDiscoverCount">Max number of Dependency Types to discover.</param>
         private void ReinitializeMetrics(int maxDependencyTypesToDiscoverCount)
         {
-            MetricManager thisMetricManager = this.metricManager;
+            MetricManagerV1 thisMetricManager = this.metricManager;
             if (thisMetricManager == null)
             {
                 MetricsCache newMetrics = new MetricsCache()

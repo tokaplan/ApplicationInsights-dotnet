@@ -17,7 +17,7 @@
         /// <summary>
         /// Aggregator manager for the aggregator.
         /// </summary>
-        private readonly MetricManager manager;
+        private readonly MetricManagerV1 manager;
 
         /// <summary>
         /// Metric aggregator id to look for in the aggregator dictionary.
@@ -36,7 +36,7 @@
         /// <param name="name">Metric name.</param>
         /// <param name="dimensions">Metric dimensions.</param>
         internal Metric(
-            MetricManager manager,
+            MetricManagerV1 manager,
             string name, 
             IDictionary<string, string> dimensions = null)
         {
@@ -150,7 +150,7 @@
         {
             // create a local reference to metric processor collection
             // if collection changes after that - it will be copied not affecting local reference
-            IList<IMetricProcessor> metricProcessors = this.manager.MetricProcessors;
+            IList<IMetricProcessorV1> metricProcessors = this.manager.MetricProcessors;
 
             if (metricProcessors != null)
             {
@@ -158,7 +158,7 @@
 
                 for (int i = 0; i < processorCount; i++)
                 {
-                    IMetricProcessor processor = metricProcessors[i];
+                    IMetricProcessorV1 processor = metricProcessors[i];
 
                     try
                     {

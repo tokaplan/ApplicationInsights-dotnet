@@ -41,13 +41,13 @@
 
         /// <summary>
         /// Gets the metric manager that owns all extracted metric data series.
-        /// The <c>MetricManager</c> allows participating extractors to access the <c>Microsoft.ApplicationInsights.Extensibility.MetricManager</c> instance
+        /// The <c>MetricManagerV1</c> allows participating extractors to access the <c>Microsoft.ApplicationInsights.Extensibility.MetricManagerV1</c> instance
         /// that aggregates all metrics to be extracted. Participants should call
         /// <see cref="MetricManager.CreateMetric(string, System.Collections.Generic.IDictionary{string, string})"/> on
         /// this instance for construction of all data series to be extracted from telemetry. This will ensure that all metric documents are
         /// aggregated and tagged correctly and are processed using the <see cref="TelemetryConfiguration"/> instance used to initialize this extractor.
         /// </summary>
-        private MetricManager metricManager = null;
+        private MetricManagerV1 metricManager = null;
 
         /// <summary>
         /// The telemetry processor that will be called after this processor.
@@ -113,7 +113,7 @@
                 telemetryClient.Context.Properties[MetricTerms.Autocollection.Moniker.Key] = MetricTerms.Autocollection.Moniker.Value;
             }
 
-            this.metricManager = new MetricManager(telemetryClient);
+            this.metricManager = new MetricManagerV1(telemetryClient);
             this.InitializeExtractors();
         }
 
@@ -216,7 +216,7 @@
         /// </summary>
         private void InitializeExtractors()
         {
-            MetricManager thisMetricManager = this.metricManager;
+            MetricManagerV1 thisMetricManager = this.metricManager;
 
             foreach (ExtractorWithInfo participant in this.extractors)
             {
