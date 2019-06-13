@@ -1,6 +1,5 @@
 ﻿namespace Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.Implementation
 {
-#if !NETCOREAPP
     using System;
     using System.IO;
     using System.Security.AccessControl;
@@ -262,5 +261,4 @@
             }
         }
     }
-#endif
 }
