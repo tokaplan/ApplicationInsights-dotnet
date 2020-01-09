@@ -18,10 +18,6 @@
     <PackageTags>Azure Monitoring Analytics ApplicationInsights Telemetry AppInsights</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.6' OR '$(TargetFramework)' == 'netstandard2.0'">
-    <DefineConstants>$(DefineConstants);NETSTANDARD;</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup Condition=" $(OS) == 'Windows_NT'">
     <!--Analyzers-->
     <PackageReference Include="Desktop.Analyzers" Version="1.1.0">

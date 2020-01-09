@@ -11,16 +11,15 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
     <RootNamespace>Microsoft.ApplicationInsights.Tests</RootNamespace>
+    <NoWarn>1701;1702;1705;1591;8002</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1705;1591;8002</NoWarn>
-    <DefineConstants>TRACE;DEBUG;NETCORE;NETCOREAPP1_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETCORE;</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;1705;1591;8002</NoWarn>
-    <DefineConstants>TRACE;RELEASE;NETCORE;NETCOREAPP1_0</DefineConstants>
+    <DefineConstants>TRACE;RELEASE;NETCORE;</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

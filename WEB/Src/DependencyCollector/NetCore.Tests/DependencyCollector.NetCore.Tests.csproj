@@ -13,12 +13,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1705;1591</NoWarn>
-    <DefineConstants>TRACE;DEBUG;NETCORE;NETCOREAPP2_1</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETCORE;</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>1701;1702;1705;1591</NoWarn>
-    <DefineConstants>TRACE;RELEASE;NETCORE;NETCOREAPP2_1</DefineConstants>
+    <DefineConstants>TRACE;RELEASE;NETCORE;</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

@@ -209,6 +209,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi20.FunctionalTests20"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationInsightsTypes", "NETCORE\test\ApplicationInsightsTypes\ApplicationInsightsTypes.csproj", "{3D7258E3-5DDC-45A4-A457-9AA3BCC92DE7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildInfra.Tests", "test\BuildInfraTests\BuildInfra.Tests.csproj", "{C6C56DB1-CAE0-4AF5-A737-A002420875D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildInfraTests2", "test\BuildInfraTests2\BuildInfraTests2.csproj", "{2CCE5045-1BE6-4952-93D1-E3A99BB065AB}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		WEB\Src\PerformanceCollector\Perf.Shared.NetStandard20Net45\Perf.Shared.NetStandard20Net45.projitems*{054c25dc-e545-4712-95c4-81f30cf65ce8}*SharedItemsImports = 13
@@ -484,6 +488,14 @@ Global
 		{3D7258E3-5DDC-45A4-A457-9AA3BCC92DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D7258E3-5DDC-45A4-A457-9AA3BCC92DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D7258E3-5DDC-45A4-A457-9AA3BCC92DE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6C56DB1-CAE0-4AF5-A737-A002420875D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6C56DB1-CAE0-4AF5-A737-A002420875D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6C56DB1-CAE0-4AF5-A737-A002420875D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6C56DB1-CAE0-4AF5-A737-A002420875D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CCE5045-1BE6-4952-93D1-E3A99BB065AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CCE5045-1BE6-4952-93D1-E3A99BB065AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CCE5045-1BE6-4952-93D1-E3A99BB065AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CCE5045-1BE6-4952-93D1-E3A99BB065AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
