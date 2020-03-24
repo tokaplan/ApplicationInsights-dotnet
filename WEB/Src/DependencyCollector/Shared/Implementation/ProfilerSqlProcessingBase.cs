@@ -1,8 +1,12 @@
 ﻿namespace Microsoft.ApplicationInsights.DependencyCollector.Implementation
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#endif
+
     using System;
     using System.Data.SqlClient;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Threading.Tasks;
     using Microsoft.ApplicationInsights.Common;

@@ -5,6 +5,7 @@
     <AssemblyName>Microsoft.ApplicationInsights.DiagnosticSourceListener.NetCoreApp10.Tests</AssemblyName>
     <TargetFramework>netcoreapp1.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DefineConstants>$(DefineConstants);UseDiagSrcAlias</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\DiagnosticSourceListener\DiagnosticSourceListener.csproj" />
+    <ProjectReference Include="$(EnlistmentRoot)\System.Diagnostics.DiagnosticSourceWrapper\System.Diagnostics.DiagnosticSourceWrapper.csproj" Aliases="DiagSrcWrapper" />
   </ItemGroup>
 
   <ItemGroup>

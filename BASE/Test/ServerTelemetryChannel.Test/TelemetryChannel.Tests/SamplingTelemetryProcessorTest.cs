@@ -1,8 +1,14 @@
 ﻿namespace Microsoft.ApplicationInsights.WindowsServer.Channel
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.ApplicationInsights.Extensibility;

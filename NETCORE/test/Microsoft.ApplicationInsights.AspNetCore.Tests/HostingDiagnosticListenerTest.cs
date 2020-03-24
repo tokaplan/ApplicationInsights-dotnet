@@ -1,9 +1,16 @@
 ﻿namespace UnitTests
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+    using Stopwatch = System.Diagnostics.Stopwatch;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;

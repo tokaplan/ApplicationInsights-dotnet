@@ -39,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FunctionalTestUtils20\FunctionalTestUtils20.csproj" />
     <ProjectReference Include="..\..\src\Microsoft.ApplicationInsights.AspNetCore\Microsoft.ApplicationInsights.AspNetCore.csproj" />
+    <ProjectReference Include="$(EnlistmentRoot)\System.Diagnostics.DiagnosticSourceWrapper\System.Diagnostics.DiagnosticSourceWrapper.csproj" Aliases="DoNotUse" />
   </ItemGroup>
   
   <ItemGroup>	

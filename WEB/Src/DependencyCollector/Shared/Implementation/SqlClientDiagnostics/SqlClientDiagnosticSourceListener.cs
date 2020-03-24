@@ -1,8 +1,13 @@
 namespace Microsoft.ApplicationInsights.DependencyCollector.Implementation.SqlClientDiagnostics
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+    using Stopwatch = System.Diagnostics.Stopwatch;
+#endif
+
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Globalization;
 
     using Microsoft.ApplicationInsights.Common;

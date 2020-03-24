@@ -3,8 +3,15 @@
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 namespace Microsoft.Extensions.DependencyInjection.Test
 {
-    using System;
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+    using Trace = System.Diagnostics.Trace;
+#else
     using System.Diagnostics;
+#endif
+
+    using System;
     using System.IO;
     using System.Linq;
     using System.Reflection;

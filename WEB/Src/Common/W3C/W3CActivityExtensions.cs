@@ -1,6 +1,11 @@
 ﻿#if DEPENDENCY_COLLECTOR
 namespace Microsoft.ApplicationInsights.W3C
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using Activity = DiagSrcWrapper::System.Diagnostics.Activity;
+#endif
+
     using System;
     using System.ComponentModel;
     using System.Diagnostics;

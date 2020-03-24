@@ -1,6 +1,12 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
     using System.Diagnostics;
+#endif
+
     using System.Linq;
     using Implementation;
     using Microsoft.ApplicationInsights.DataContracts;

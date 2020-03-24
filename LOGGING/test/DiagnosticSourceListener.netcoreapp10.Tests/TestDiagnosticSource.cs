@@ -6,7 +6,12 @@
 
 namespace Microsoft.ApplicationInsights.DiagnosticSourceListener.Tests
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
     using System.Diagnostics;
+#endif
 
     internal class TestDiagnosticSource : DiagnosticListener
     {

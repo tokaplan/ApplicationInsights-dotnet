@@ -1,8 +1,14 @@
 namespace Microsoft.ApplicationInsights.AspNetCore
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Concurrent;
-    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.Threading;

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- <Import Project="$(EnlistmentRoot)\Product.props" /> -->
+  <Import Project="$(EnlistmentRoot)\.props\_Signing.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;net46;netstandard1.3;netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.3" />
+  </ItemGroup>
+
+  <Import Project="$(EnlistmentRoot)\BASE\Signing.targets" />
+</Project>

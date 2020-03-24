@@ -37,8 +37,10 @@
 	  <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.6.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
+    <ProjectReference Include="$(EnlistmentRoot)\System.Diagnostics.DiagnosticSourceWrapper\System.Diagnostics.DiagnosticSourceWrapper.csproj" Aliases="DoNotUse" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 

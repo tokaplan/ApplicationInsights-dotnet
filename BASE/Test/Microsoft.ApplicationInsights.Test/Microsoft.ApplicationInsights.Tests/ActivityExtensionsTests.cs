@@ -1,6 +1,12 @@
 ﻿namespace Microsoft.ApplicationInsights
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
     using System.Diagnostics;
+#endif
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     
 

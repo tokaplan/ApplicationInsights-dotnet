@@ -1,9 +1,16 @@
 ﻿namespace Microsoft.ApplicationInsights.Common
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+    using Debug=System.Diagnostics.Debug;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.Diagnostics;
     using System.Linq;
 
     /// <summary>

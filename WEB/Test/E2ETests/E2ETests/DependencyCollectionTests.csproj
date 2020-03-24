@@ -71,9 +71,7 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\packages\System.Diagnostics.DiagnosticSource.4.6.0-preview8.19405.3\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="$(EnlistmentRoot)\System.Diagnostics.DiagnosticSourceWrapper\System.Diagnostics.DiagnosticSourceWrapper.csproj" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>

@@ -9,6 +9,7 @@
     <TargetFramework>net45</TargetFramework>
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>$(DefineConstants);ALLOW_AGGRESSIVE_INLIGNING_ATTRIBUTE</DefineConstants>
+    <DefineConstants>$(DefineConstants);UseDiagSrcAlias</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -43,7 +44,7 @@
     <!--Common Dependencies-->
     <ProjectReference Include="..\..\..\..\BASE\src\Microsoft.ApplicationInsights\Microsoft.ApplicationInsights.csproj" />
     <PackageReference Include="Microsoft.AspNet.TelemetryCorrelation" Version="1.0.7" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.6.0" />
+    <ProjectReference Include="$(EnlistmentRoot)\System.Diagnostics.DiagnosticSourceWrapper\System.Diagnostics.DiagnosticSourceWrapper.csproj" Aliases="DiagSrcWrapper" />
   </ItemGroup>
 
   <ItemGroup>

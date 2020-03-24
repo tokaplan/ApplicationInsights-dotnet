@@ -1,8 +1,14 @@
 ﻿namespace Microsoft.ApplicationInsights
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Concurrent;
-    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.ApplicationInsights.Channel;

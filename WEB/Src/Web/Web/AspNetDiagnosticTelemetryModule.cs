@@ -1,8 +1,14 @@
 ﻿namespace Microsoft.ApplicationInsights.Web
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Web;
     using Microsoft.ApplicationInsights.Common;
     using Microsoft.ApplicationInsights.Extensibility;

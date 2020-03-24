@@ -1,8 +1,16 @@
 ﻿namespace Microsoft.ApplicationInsights.WindowsServer.Channel
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+    using Trace = System.Diagnostics.Trace;
+    using Stopwatch = System.Diagnostics.Stopwatch;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;

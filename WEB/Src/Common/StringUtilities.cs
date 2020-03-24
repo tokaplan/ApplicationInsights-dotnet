@@ -4,8 +4,16 @@
     namespace Microsoft.ApplicationInsights.Common.Internal
 #endif
 {
-    using System;
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+
+    using Debug = System.Diagnostics.Debug;
+#else
     using System.Diagnostics;
+#endif
+
+    using System;
     using System.Globalization;
 
     /// <summary>

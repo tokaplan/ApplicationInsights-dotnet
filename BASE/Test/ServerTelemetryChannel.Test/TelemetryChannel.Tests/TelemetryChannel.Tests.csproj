@@ -25,6 +25,7 @@
 
     <!-- this constant is set for all other netcore targets except 1-->
     <DefineConstants Condition="'$(TargetFramework)' == 'netcoreapp1.1'">$(DefineConstants);NETCOREAPP;NETCOREAPP1_1;</DefineConstants>
+    <DefineConstants>$(DefineConstants);UseDiagSrcAlias</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,7 +42,7 @@
     <PackageReference Include="CompareNETObjects" Version="4.59.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
 
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.6.0" />
+    <ProjectReference Include="$(EnlistmentRoot)\System.Diagnostics.DiagnosticSourceWrapper\System.Diagnostics.DiagnosticSourceWrapper.csproj" Aliases="DiagSrcWrapper" />
 
   </ItemGroup>
 

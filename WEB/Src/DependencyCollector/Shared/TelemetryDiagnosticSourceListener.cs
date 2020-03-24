@@ -1,5 +1,11 @@
 namespace Microsoft.ApplicationInsights.DependencyCollector.Implementation
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagnosticListener = DiagSrcWrapper::System.Diagnostics.DiagnosticListener;
+    using Activity = DiagSrcWrapper::System.Diagnostics.Activity;
+#endif
+
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;

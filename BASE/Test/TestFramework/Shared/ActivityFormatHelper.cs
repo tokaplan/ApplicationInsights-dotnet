@@ -1,6 +1,12 @@
-﻿using System;
+﻿#if UseDiagSrcAlias
+extern alias DiagSrcWrapper;
+using DiagSrcWrapper::System.Diagnostics;
+#else
+    using System.Diagnostics;
+#endif
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 
 namespace Microsoft.ApplicationInsights.TestFramework

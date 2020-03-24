@@ -1,7 +1,13 @@
 ﻿namespace Microsoft.ApplicationInsights.Web.Implementation
 {
-    using System;
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
     using System.Diagnostics;
+#endif
+
+    using System;
     using System.Linq;
     using System.Web;
     using Microsoft.ApplicationInsights.Common;
@@ -39,7 +45,9 @@
                 // Here we simply maintaining backward compatibility with this behavior...
 
                 currentActivity = new Activity(ActivityHelpers.RequestActivityItemName);
-                if (!currentActivity.Extract(headers))
+                // ActivityExtensions.Extract
+                // FIXME: if (!currentActivity.Extract(headers))
+                if (true)
                 {
                     if (ActivityHelpers.ParentOperationIdHeaderName != null &&
                         ActivityHelpers.RootOperationIdHeaderName != null)

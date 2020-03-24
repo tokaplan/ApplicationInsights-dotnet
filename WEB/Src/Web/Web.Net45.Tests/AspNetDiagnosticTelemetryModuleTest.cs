@@ -1,8 +1,14 @@
 ﻿namespace Microsoft.ApplicationInsights
 {
+// #if UseDiagSrcAlias
+//     extern alias DiagSrcWrapper;
+//     using DiagSrcWrapper::System.Diagnostics;
+// #else
+    using System.Diagnostics;
+// #endif
+
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
@@ -390,7 +396,7 @@
 
             var activity = new Activity(FakeAspNetDiagnosticSource.IncomingRequestEventName);
 
-            activity.Extract(HttpContext.Current.Request.Headers);
+            // FIXME: activity.Extract(HttpContext.Current.Request.Headers);
 
             Assert.IsTrue(this.aspNetDiagnosticsSource.IsEnabled(FakeAspNetDiagnosticSource.IncomingRequestEventName, activity));
             this.aspNetDiagnosticsSource.StartActivityWithoutChecks(activity);
@@ -502,7 +508,7 @@
             this.module = this.CreateModule("rootHeaderName", "parentHeaderName");
 
             var activity = new Activity(FakeAspNetDiagnosticSource.IncomingRequestEventName);
-            activity.Extract(HttpContext.Current.Request.Headers);
+            // FIXME: activity.Extract(HttpContext.Current.Request.Headers);
 
             Assert.IsTrue(this.aspNetDiagnosticsSource.IsEnabled(FakeAspNetDiagnosticSource.IncomingRequestEventName, activity));
             this.aspNetDiagnosticsSource.StartActivityWithoutChecks(activity);
@@ -677,7 +683,7 @@
             {
                 Debug.Assert(activity != null, "Activity is null");
 
-                activity.Extract(this.fakeContext.Request.Headers);
+                // FIXME: activity.Extract(this.fakeContext.Request.Headers);
                 this.listener.OnActivityImport(activity, null);
                 this.listener.StartActivity(activity, new { });
                 this.fakeContext.Items["__AspnetActivity__"] = activity;
@@ -691,7 +697,7 @@
                     {
                         activity = new Activity(IncomingRequestEventName);
 
-                        activity.Extract(this.fakeContext.Request.Headers);
+                        // FIXME: activity.Extract(this.fakeContext.Request.Headers);
 
                         this.listener.OnActivityImport(activity, null);
                     }

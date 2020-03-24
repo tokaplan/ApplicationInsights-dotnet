@@ -1,9 +1,15 @@
 ﻿namespace Microsoft.ApplicationInsights.Tests
 {
 #if NET45
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Diagnostics.Tracing;
     using System.Globalization;
     using System.Linq;

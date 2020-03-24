@@ -1,7 +1,13 @@
 ﻿namespace Microsoft.ApplicationInsights.AspNetCore.Tests.Helpers
 {
-    using System;
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+#else
     using System.Diagnostics;
+#endif
+
+    using System;
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.Extensibility;
 

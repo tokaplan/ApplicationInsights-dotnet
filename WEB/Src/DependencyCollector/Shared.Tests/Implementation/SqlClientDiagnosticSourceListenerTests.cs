@@ -1,10 +1,17 @@
 namespace Microsoft.ApplicationInsights.Tests
 {
+#if UseDiagSrcAlias
+    extern alias DiagSrcWrapper;
+    using DiagSrcWrapper::System.Diagnostics;
+    using Stopwatch = System.Diagnostics.Stopwatch;
+#else
+    using System.Diagnostics;
+#endif
+
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using Microsoft.ApplicationInsights.Channel;
