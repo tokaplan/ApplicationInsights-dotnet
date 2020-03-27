@@ -396,7 +396,7 @@
 
             var activity = new Activity(FakeAspNetDiagnosticSource.IncomingRequestEventName);
 
-            // FIXME: activity.Extract(HttpContext.Current.Request.Headers);
+            activity.Extract(HttpContext.Current.Request.Headers);
 
             Assert.IsTrue(this.aspNetDiagnosticsSource.IsEnabled(FakeAspNetDiagnosticSource.IncomingRequestEventName, activity));
             this.aspNetDiagnosticsSource.StartActivityWithoutChecks(activity);
@@ -508,7 +508,7 @@
             this.module = this.CreateModule("rootHeaderName", "parentHeaderName");
 
             var activity = new Activity(FakeAspNetDiagnosticSource.IncomingRequestEventName);
-            // FIXME: activity.Extract(HttpContext.Current.Request.Headers);
+            activity.Extract(HttpContext.Current.Request.Headers);
 
             Assert.IsTrue(this.aspNetDiagnosticsSource.IsEnabled(FakeAspNetDiagnosticSource.IncomingRequestEventName, activity));
             this.aspNetDiagnosticsSource.StartActivityWithoutChecks(activity);
@@ -683,7 +683,7 @@
             {
                 Debug.Assert(activity != null, "Activity is null");
 
-                // FIXME: activity.Extract(this.fakeContext.Request.Headers);
+                activity.Extract(this.fakeContext.Request.Headers);
                 this.listener.OnActivityImport(activity, null);
                 this.listener.StartActivity(activity, new { });
                 this.fakeContext.Items["__AspnetActivity__"] = activity;
@@ -697,7 +697,7 @@
                     {
                         activity = new Activity(IncomingRequestEventName);
 
-                        // FIXME: activity.Extract(this.fakeContext.Request.Headers);
+                        activity.Extract(this.fakeContext.Request.Headers);
 
                         this.listener.OnActivityImport(activity, null);
                     }

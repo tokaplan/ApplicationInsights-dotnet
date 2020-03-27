@@ -45,9 +45,7 @@
                 // Here we simply maintaining backward compatibility with this behavior...
 
                 currentActivity = new Activity(ActivityHelpers.RequestActivityItemName);
-                // ActivityExtensions.Extract
-                // FIXME: if (!currentActivity.Extract(headers))
-                if (true)
+                if (!currentActivity.Extract(headers))
                 {
                     if (ActivityHelpers.ParentOperationIdHeaderName != null &&
                         ActivityHelpers.RootOperationIdHeaderName != null)

@@ -3,7 +3,8 @@
   <Import Project="$(EnlistmentRoot)\.props\_Signing.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net46;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <!--<TargetFrameworks>net45;net46;netstandard2.0</TargetFrameworks>-->
+    <TargetFrameworks>net45;net46;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>

@@ -22,6 +22,7 @@
   <ItemGroup>    
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.6.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
@@ -43,4 +44,8 @@
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
+
+  <!--<Target Name="CopyDiagSrcToBin" AfterTargets="Build" Condition="'$(TargetFramework)'=='netcoreapp2.0'">
+    <Copy SourceFiles="S:\src\github\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\netstandard1.3\System.Diagnostics.DiagnosticSource.dll" DestinationFiles="$(OutDir)\System.Diagnostics.DiagnosticSource.dll" />
+  </Target>-->
 </Project>

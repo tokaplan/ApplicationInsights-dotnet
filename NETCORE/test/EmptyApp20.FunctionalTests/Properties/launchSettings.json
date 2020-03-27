@@ -1,24 +1,9 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:4828/",
-      "sslPort": 0
-    }
-  },
   "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
+    "EmptyApp20.FunctionalTests20": {
+      "commandName": "Project",
       "environmentVariables": {
-        "ASPNET_ENVIRONMENT": "Development"
-      }
-    },
-    "web": {
-      "commandName": "web",
-      "environmentVariables": {
-        "ASPNET_ENVIRONMENT": "Development"
+        "test": "foo"
       }
     }
   }

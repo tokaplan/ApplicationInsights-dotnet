@@ -526,7 +526,7 @@
             if (startActivity)
             {
                 var activity = new Activity("operation");
-                // activity.Extract(context.Request.Headers);
+                activity.Extract(context.Request.Headers);
                 activity.Start();
             }
 

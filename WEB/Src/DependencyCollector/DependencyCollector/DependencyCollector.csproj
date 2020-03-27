@@ -6,8 +6,8 @@
   <PropertyGroup>
     <RootNamespace>Microsoft.ApplicationInsights.DependencyCollector</RootNamespace>
     <AssemblyName>Microsoft.AI.DependencyCollector</AssemblyName>
-    <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <TargetFrameworks Condition="$(OS) != 'Windows_NT'">netstandard1.6;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) != 'Windows_NT'">netstandard2.0</TargetFrameworks>
     <Prefer32Bit>false</Prefer32Bit> <!-- net45 -->
     <DefineConstants>$(DefineConstants);DEPENDENCY_COLLECTOR;ALLOW_AGGRESSIVE_INLIGNING_ATTRIBUTE;</DefineConstants>
     <DefineConstants>$(DefineConstants);UseDiagSrcAlias;</DefineConstants>

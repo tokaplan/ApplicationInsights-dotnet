@@ -14,8 +14,8 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <TargetFrameworks>net45;net46;netcoreapp1.1;netcoreapp2.0;netcoreapp3.0</TargetFrameworks>
-    <TargetFrameworks Condition="$(OS) != 'Windows_NT'">netcoreapp1.1;netcoreapp2.0;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net45;net46;netcoreapp2.0;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) != 'Windows_NT'">netcoreapp2.0;netcoreapp3.0</TargetFrameworks>
     <DebugType>pdbonly</DebugType> 
     <DebugSymbols>true</DebugSymbols> 
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -42,6 +42,7 @@
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.6.0" />
     <ProjectReference Include="$(EnlistmentRoot)\System.Diagnostics.DiagnosticSourceWrapper\System.Diagnostics.DiagnosticSourceWrapper.csproj" Aliases="DiagSrcWrapper" />
   </ItemGroup>
 
