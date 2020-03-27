@@ -344,7 +344,7 @@ namespace System.Diagnostics
             {
                 var wrapper = value;
                 var prop = ActivityReflectedType.GetProperty("Current", BindingFlags.Public | BindingFlags.Static);
-                prop.SetValue(null, wrapper.wrappedActivity);
+                prop.SetValue(null, wrapper?.wrappedActivity);
             }
         }
 
