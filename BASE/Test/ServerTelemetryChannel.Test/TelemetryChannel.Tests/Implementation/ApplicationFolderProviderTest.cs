@@ -150,6 +150,7 @@
             temp.Delete(true);
         }
 
+        [Ignore("Baseline")]
         [TestMethod]
         [TestCategory("WindowsOnly")]
         public void GetApplicationFolderReturnsSubfolderFromTempFolderIfLocalAppDataIsTooLong()
