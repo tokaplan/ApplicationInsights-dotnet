@@ -48,6 +48,7 @@
                 }
             }
 
+            [Ignore("Race condition in test")]
             [TestMethod]
             public void SendingLogicMarkedAsInternalSdkOperation()
             {

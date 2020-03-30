@@ -28,13 +28,14 @@ namespace System.Diagnostics
         {
             try
             {
-#if NETSTANDARD2_0
-                asm = Assembly.LoadFrom(@"S:\src\github\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\netstandard1.3\System.Diagnostics.DiagnosticSource.dll");
-                Assembly.LoadFrom(@"C:\Users\mikp\.nuget\packages\system.memory\4.5.2\lib\netstandard2.0\System.Memory.dll");
-#else
-            asm = Assembly.LoadFrom(@"S:\src\github\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net45\System.Diagnostics.DiagnosticSource.dll");
-            Assembly.LoadFrom(@"C:\Users\mikp\.nuget\packages\system.memory\4.5.2\lib\netstandard1.1\System.Memory.dll");
-#endif
+                asm = Assembly.Load("System.Diagnostics.DiagnosticSource");
+// #if NETSTANDARD2_0
+//                 asm = Assembly.LoadFrom(@"S:\src\github\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\netstandard1.3\System.Diagnostics.DiagnosticSource.dll");
+//                 Assembly.LoadFrom(@"C:\Users\mikp\.nuget\packages\system.memory\4.5.2\lib\netstandard2.0\System.Memory.dll");
+// #else
+//             asm = Assembly.LoadFrom(@"S:\src\github\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net45\System.Diagnostics.DiagnosticSource.dll");
+//             Assembly.LoadFrom(@"C:\Users\mikp\.nuget\packages\system.memory\4.5.2\lib\netstandard1.1\System.Memory.dll");
+// #endif
             }
             catch (Exception e)
             {
