@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project InitialTargets="GetVersionTarget" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Target Name="Info_GlobalStaticVersionProps"  BeforeTargets="Build" Condition=" $(Internal_Logging) == 'true' ">
     <Message Text="Info: GlobalStaticVersion.props imported by $(MSBuildProjectName)." Importance="high"/>
@@ -27,12 +27,19 @@
       Pre-release version is used to distinguish internally built NuGet packages.
       Pre-release version = Minutes since semantic version was set, divided by 5 (to make it fit in a UInt16 (max 65535 = ~7 months).
     -->
-    <BuildNumber>$([MSBuild]::Divide($([System.DateTime]::Now.Subtract($([System.DateTime]::Parse($(SemanticVersionDate)))).TotalMinutes), 5).ToString('F0'))</BuildNumber>
+    <!--<BuildNumber>$([MSBuild]::Divide($([System.DateTime]::Now.Subtract($([System.DateTime]::Parse($(SemanticVersionDate)))).TotalMinutes), 5).ToString('F0'))</BuildNumber>-->
 
     <VersionPrefix>$(SemanticVersionMajor).$(SemanticVersionMinor).$(SemanticVersionPatch)</VersionPrefix>
     <VersionSuffix>$(PreReleaseMilestone)</VersionSuffix>
-    <AssemblyVersion>$(VersionPrefix).$(BuildNumber)</AssemblyVersion> 
-    <FileVersion>$(AssemblyVersion)</FileVersion> 
+    <!--<AssemblyVersion>$(VersionPrefix).$(BuildNumber)</AssemblyVersion> 
+    <FileVersion>$(AssemblyVersion)</FileVersion>-->
+
+    <BuildNumber>xxx</BuildNumber>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+
+
+    <ThisIsATestTask />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(PackageVersion)'==''">
@@ -53,4 +60,113 @@
       <_Parameter1>$(FileVersion)</_Parameter1>
     </AssemblyAttributes>
   </ItemGroup>
+
+
+  <Target Name="GetVersionTarget" BeforeTargets="Build">
+    <Message Text="****TEST_BEFORE*** BuildNumber: '$(BuildNumber)'  AssemblyVersion: '$(AssemblyVersion)'  FileVersion: '$(FileVersion)'" Importance="High" />
+
+
+    <GetObjDirectory Directory="$(IntermediateOutputPath)" >
+      <Output ItemName="ObjDirectory" TaskParameter="Result" />
+    </GetObjDirectory>
+
+    <!--<Message Text="****TEST*** Dir:'$(IntermediateOutputPath)' ObjDir:'@(ObjDirectory)'" Importance="High" />-->
+
+    <GetBuildNumber Directory="@(ObjDirectory)" SemanticDate="$(SemanticVersionDate)" >
+      <Output TaskParameter="Result" PropertyName="BuildNumber" />
+    </GetBuildNumber>
+
+    <!--<Message Text="****TEST*** TaskBuildNumber: '@(TaskBuildNumber)'" Importance="High" />-->
+
+    <CreateProperty Value="$(VersionPrefix).$(BuildNumber)">
+      <Output TaskParameter="Value" PropertyName="AssemblyVersion" />
+    </CreateProperty>
+    <CreateProperty Value="$(AssemblyVersion)">
+      <Output TaskParameter="Value" PropertyName="FileVersion" />
+    </CreateProperty>
+    
+    <Message Text="****TEST_AFTER*** BuildNumber: '$(BuildNumber)'  AssemblyVersion: '$(AssemblyVersion)'  FileVersion: '$(FileVersion)'" Importance="High" />
+  </Target>
+
+
+    <UsingTask TaskName="GetObjDirectory" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+      <ParameterGroup>
+        <Directory ParameterType="System.String" Required="true" />
+        <Result ParameterType="System.String" Output="true" />
+      </ParameterGroup>
+      <Task>
+        <Using Namespace="System" />
+        <Using Namespace="System.Diagnostics" />
+        <Using Namespace="System.IO" />
+        <Code Type="Fragment" Language="cs">
+          <![CDATA[
+              //Log.LogMessage(MessageImportance.High, "****TEST InputDirectory '{0}'", Directory);
+              DirectoryInfo directory = new DirectoryInfo(Directory);
+
+              while (directory != null && !directory.Name.Equals("obj", StringComparison.OrdinalIgnoreCase))
+              {
+                  directory = directory.Parent;
+              }
+              
+              //Log.LogMessage(MessageImportance.High, "****TEST final: '{0}'", directory?.FullName ?? "null");
+              Result = directory?.FullName;
+          ]]>
+        </Code>
+      </Task>
+    </UsingTask>
+
+    <UsingTask TaskName="GetBuildNumber" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+      <ParameterGroup>
+        <Directory ParameterType="System.String" Required="true" />
+        <SemanticDate ParameterType="System.String" Required="true" />
+        <Result ParameterType="System.String" Output="true" />
+      </ParameterGroup>
+      <Task>
+        <Using Namespace="System" />
+        <Using Namespace="System.Diagnostics" />
+        <Using Namespace="System.IO" />
+        <Code Type="Fragment" Language="cs">
+          <![CDATA[
+            //Log.LogMessage(MessageImportance.High, "****INPUTS Directory: '{0}'" SemanticDate: '{1}', Directory, SemanticDate);
+          
+            string fileName = "buildVersion.v";
+            string filePath = Path.Combine(Directory, fileName);
+
+            if (File.Exists(filePath))
+            {
+                string temp = File.ReadAllText(filePath);
+                Result = temp;
+            }
+            else
+            {
+                double minutes = DateTime.Now.Subtract(DateTime.Parse(SemanticDate)).TotalMinutes;
+                UInt16 buildNumber = (UInt16)(minutes / 5);
+
+                System.IO.File.WriteAllText(filePath, buildNumber.ToString());
+                Result = buildNumber.ToString();
+            }
+            ]]>
+        </Code>
+      </Task>
+    </UsingTask>
+
+  <UsingTask TaskName="ThisIsATestTask" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <!--<Directory ParameterType="System.String" Required="true" />
+      <SemanticDate ParameterType="System.String" Required="true" />
+      <Result ParameterType="System.String" Output="true" />-->
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.Diagnostics" />
+      <Using Namespace="System.IO" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            Log.LogMessage(MessageImportance.High, "************************** THIS IS A TEST");
+          
+            ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+  
 </Project>
