@@ -331,6 +331,7 @@
             services.AddSingleton<ITelemetryModule, AppServicesHeartbeatTelemetryModule>();
             services.AddSingleton<ITelemetryModule, AzureInstanceMetadataTelemetryModule>();
             services.AddSingleton<ITelemetryModule, QuickPulseTelemetryModule>();
+            services.AddSingleton<ITelemetryModule, DiagnosticsTelemetryModule>();
 
             AddAndConfigureDependencyTracking(services);
 #if NETSTANDARD2_0
