@@ -18,18 +18,21 @@
 
   <ItemGroup Condition=" $(OS) == 'Windows_NT' And $(Configuration) == 'Release'">
     <!--Analyzers-->
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
+
     <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.0.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
+    <!-- test -->
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    
     <!--Build Infrastructure-->
     <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="0.4.1">
       <PrivateAssets>All</PrivateAssets>
