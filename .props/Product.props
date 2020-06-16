@@ -3,6 +3,11 @@
 
   <Target Name="Info_ProductProps"  BeforeTargets="Build" Condition=" $(Internal_Logging) == 'true' ">
     <Message Text="Info: Product.props imported by $(MSBuildProjectName)." Importance="high"/>
+
+
+    <Message Text="**TEST******* OS: '$(OS)'." Importance="high"/>
+    <Message Text="**TEST******* Configuration: '$(Configuration)'." Importance="high"/>
+    <Message Text="**TEST******* Condition: True"  Condition=" $(OS) == 'Windows_NT' And $(Configuration) == 'Release'" Importance="high"/>
   </Target>
 
   <Import Project=".\_Common.props" />
