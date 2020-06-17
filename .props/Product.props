@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+  
   <Target Name="Info_ProductProps"  BeforeTargets="Build" Condition=" $(Internal_Logging) == 'true' ">
     <Message Text="Info: Product.props imported by $(MSBuildProjectName)." Importance="high"/>
-
-
-    <Message Text="**TEST******* OS: '$(OS)'." Importance="high"/>
-    <Message Text="**TEST******* Configuration: '$(Configuration)'." Importance="high"/>
-    <Message Text="**TEST******* Condition: True"  Condition="'$(OS)' == 'Windows_NT' And '$(Configuration)' == 'Release'" Importance="high"/>
   </Target>
 
   <Import Project=".\_Common.props" />
@@ -16,9 +11,13 @@
   <Import Project=".\_GlobalStaticVersion.props" />
   <Import Project=".\_Nupkg.props" />
 
-  
-  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
-    <!--Analyzers    And '$(Configuration)' == 'Release' -->
+
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT' And '$(Configuration)' != 'Debug'">
+    <!-- I would prefer this condition to say Configuration==Release but this doesn't work when using msbuild cli. 
+    I don't know why but can verify locally by testing a change that should fail FxCop.
+    This causes analyzers to not run on our build servers. -->
+    
+    <!--Analyzers-->
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
