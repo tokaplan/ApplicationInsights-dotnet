@@ -76,7 +76,7 @@
         /// Gets or sets the default instrumentation key for all <see cref="ITelemetry"/> objects logged in this <see cref="TelemetryClient"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property is no longer in use. To Read the InstrumentationKey, use 'TelemetryClient.TelemetryConfiguration.InstrumentationKey'. To Set the InstrumentationKey, use 'TelemetryConfiguration.InstrumentationKey' and create a new TelemetryClient.")]
+        [Obsolete("To set the InstrumentationKey for your entire app, use 'TelemetryConfiguration.InstrumentationKey' and create a new TelemetryClient. To set a unique InstrumentationKey for this TelemetryClient only, use 'TelemetryClient.Context.InstrumentationKey'.")]
         public string InstrumentationKey
         {
             get { return this.Context.InstrumentationKey; }
