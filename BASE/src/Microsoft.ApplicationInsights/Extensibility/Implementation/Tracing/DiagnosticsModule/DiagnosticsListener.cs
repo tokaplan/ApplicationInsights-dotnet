@@ -58,17 +58,13 @@
             }
         }
 
-        public void WriteEvent(TraceEvent eventData)
+        public void WriteEvent(EventWrittenEventArgs eventWrittenEventArgs)
         {
-            if (eventData.MetaData != null && eventData.MetaData.MessageFormat != null)
+            if (!string.IsNullOrEmpty(eventWrittenEventArgs.Message) && eventWrittenEventArgs.Level <= this.LogLevel)
             {
-                // check severity because it is not done in Silverlight EventSource implementation 
-                if (eventData.MetaData.Level <= this.LogLevel)
+                foreach (var sender in this.diagnosticsSenders)
                 {
-                    foreach (var sender in this.diagnosticsSenders)
-                    {
-                        sender.Send(eventData);
-                    }
+                    sender.Send(eventWrittenEventArgs);
                 }
             }
         }

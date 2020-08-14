@@ -7,7 +7,8 @@
     using System.Threading.Tasks;
     using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.DiagnosticsModule;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    
+
+    using Moq;
 
     [TestClass]
     public class DiagnosticsTelemetryModuleTest
@@ -84,7 +85,7 @@
                         taskStarted.Set();
                         while (!cancellationTokenSource.IsCancellationRequested)
                         {
-                            queueSender.Send(new TraceEvent());
+                            queueSender.Send(Mock.Of<EventWrittenEventArgs>());
                             Thread.Sleep(1);
                         }
                     }, cancellationTokenSource.Token);

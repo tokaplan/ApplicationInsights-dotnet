@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.DiagnosticsModule
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Tracing;
 
     /// <summary>
     /// A dummy queue sender to keep the data to be sent to the portal before the initialize method is called.
@@ -11,19 +12,19 @@
     {
         public PortalDiagnosticsQueueSender()
         {
-            this.EventData = new List<TraceEvent>();
+            this.EventData = new List<EventWrittenEventArgs>();
             this.IsDisabled = false;
         }
 
-        public IList<TraceEvent> EventData { get; }
+        public IList<EventWrittenEventArgs> EventData { get; }
 
         public bool IsDisabled { get; set; }
 
-        public void Send(TraceEvent eventData)
+        public void Send(EventWrittenEventArgs eventWrittenEventArgs)
         {
             if (!this.IsDisabled)
             {
-                this.EventData.Add(eventData);
+                this.EventData.Add(eventWrittenEventArgs);
             }
         }
 

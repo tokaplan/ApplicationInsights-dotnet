@@ -9,18 +9,20 @@
 namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.Mocks
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Tracing;
+
     using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.DiagnosticsModule;
 
     internal class DiagnosticsEventCollectingMock : IDiagnosticsSender
     {
-        private readonly IList<TraceEvent> eventList = new List<TraceEvent>();
+        private readonly IList<EventWrittenEventArgs> eventList = new List<EventWrittenEventArgs>();
 
-        public IList<TraceEvent> EventList
+        public IList<EventWrittenEventArgs> EventList
         {
             get { return this.eventList; }
         }
 
-        public void Send(TraceEvent eventData)
+        public void Send(EventWrittenEventArgs eventData)
         {
             lock (this.eventList)
             {

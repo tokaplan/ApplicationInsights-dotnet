@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.DiagnosticsModule
 {
     using System;
+    using System.Diagnostics.Tracing;
     using System.Globalization;
     using System.Linq;
 
@@ -11,8 +12,6 @@
     /// </summary>
     internal class PortalDiagnosticsSender : IDiagnosticsSender
     {
-        private const string SdkTelemetrySyntheticSourceName = "SDKTelemetry";
-
         private readonly TelemetryClient telemetryClient;
         private readonly IDiagnoisticsEventThrottlingManager throttlingManager;
 
@@ -43,11 +42,11 @@
         /// </summary>
         public string DiagnosticsInstrumentationKey { get; set; }
 
-        public void Send(TraceEvent eventData)
+        public void Send(EventWrittenEventArgs eventWrittenEventArgs)
         {
             try
             {
-                if (eventData.MetaData != null && !string.IsNullOrEmpty(eventData.MetaData.MessageFormat))
+                if (!string.IsNullOrEmpty(eventWrittenEventArgs.Message))
                 {
                     // Check if trace message is sent to the portal (somewhere before in the stack)
                     // It allows to avoid infinite recursion if sending to the portal traces something.
@@ -57,9 +56,9 @@
                         {
                             try
                             {
-                                if (!this.throttlingManager.ThrottleEvent(eventData.MetaData.EventId, eventData.MetaData.Keywords))
+                                if (!this.throttlingManager.ThrottleEvent(eventWrittenEventArgs.EventId, (long)eventWrittenEventArgs.Keywords))
                                 {
-                                    this.InternalSendTraceTelemetry(eventData);
+                                    this.InternalSendTraceTelemetry(eventWrittenEventArgs);
                                 }
                             }
                             catch (Exception exp)
@@ -79,26 +78,13 @@
             }
         }
 
-        private void InternalSendTraceTelemetry(TraceEvent eventData)
+        private void InternalSendTraceTelemetry(EventWrittenEventArgs eventWrittenEventArgs)
         {
-            if (this.telemetryClient.TelemetryConfiguration.TelemetryChannel == null)
+            if (this.telemetryClient.TelemetryConfiguration.TelemetryChannel != null)
             {
-                return;
+                var traceTelemetry = eventWrittenEventArgs.ToTraceTelemetry(this.DiagnosticsInstrumentationKey);
+                this.telemetryClient.TrackTrace(traceTelemetry);
             }
-
-            var traceTelemetry = new TraceTelemetry
-            {
-                Message = eventData.ToString(),
-            };
-
-            if (!string.IsNullOrEmpty(this.DiagnosticsInstrumentationKey))
-            {
-                traceTelemetry.Context.InstrumentationKey = this.DiagnosticsInstrumentationKey;
-            }
-
-            traceTelemetry.Context.Operation.SyntheticSource = SdkTelemetrySyntheticSourceName;
-
-            this.telemetryClient.TrackTrace(traceTelemetry);
         }
     }
 }

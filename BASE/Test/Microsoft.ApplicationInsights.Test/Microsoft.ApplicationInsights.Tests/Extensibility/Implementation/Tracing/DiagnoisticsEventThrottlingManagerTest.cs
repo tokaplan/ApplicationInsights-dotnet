@@ -83,9 +83,9 @@
             Assert.AreEqual(1, this.sender.EventList.Count, "Unexpected count of trace records");
 
             var evt = this.sender.EventList.First();
-            Assert.AreEqual(ThrottlingStartedEventId, evt.MetaData.EventId, "Unexpected trace event id");
+            Assert.AreEqual(ThrottlingStartedEventId, evt.EventId, "Unexpected trace event id");
 
-            Assert.AreEqual(2, evt.Payload.Length, "Unexpected payload items count");
+            Assert.AreEqual(2, evt.Payload.Count, "Unexpected payload items count");
 
             Assert.AreEqual(SampleEventId.ToString(), evt.Payload[0], "Unexpected event Id in payload item");
 
@@ -94,7 +94,7 @@
 
             Assert.AreEqual(
                 "Diagnostics event throttling has been started for the event {0}",
-                evt.MetaData.MessageFormat,
+                evt.Message,
                 "Unexpected event message format");
         }
 
@@ -120,9 +120,9 @@
             Assert.AreEqual(1, this.sender.EventList.Count, "Unexpected count of trace records");
 
             var evt = this.sender.EventList.First();
-            Assert.AreEqual(ThrottlingResetEventId, evt.MetaData.EventId, "Unexpected trace event id");
+            Assert.AreEqual(ThrottlingResetEventId, evt.EventId, "Unexpected trace event id");
 
-            Assert.AreEqual(3, evt.Payload.Length, "Unexpected payload items count");
+            Assert.AreEqual(3, evt.Payload.Count, "Unexpected payload items count");
 
             Assert.IsNotNull(evt.Payload[0], "Payload item[0] is null");
             Assert.IsInstanceOfType(evt.Payload[0], typeof(int), "Payload item[0] has wrong type");
@@ -139,7 +139,7 @@
 
             Assert.AreEqual(
                 "Diagnostics event throttling has been reset for the event {0}, event was fired {1} times during last interval",
-                evt.MetaData.MessageFormat,
+                evt.Message,
                 "Unexpected event message format");
         }
     }

@@ -37,22 +37,22 @@
                 return;
             }
 
-            var metadata = new EventMetaData
-            {                
-                EventSourceName = eventSourceEvent.EventSource?.Name,
-                Keywords = (long)eventSourceEvent.Keywords,
-                MessageFormat = eventSourceEvent.Message,
-                EventId = eventSourceEvent.EventId,
-                Level = eventSourceEvent.Level,
-            };
+            //var metadata = new EventMetaData
+            //{                
+            //    EventSourceName = eventSourceEvent.EventSource?.Name,
+            //    Keywords = (long)eventSourceEvent.Keywords,
+            //    MessageFormat = eventSourceEvent.Message,
+            //    EventId = eventSourceEvent.EventId,
+            //    Level = eventSourceEvent.Level,
+            //};
 
-            var traceEvent = new TraceEvent
-            {
-                MetaData = metadata,
-                Payload = eventSourceEvent.Payload?.ToArray(),
-            };
+            //var traceEvent = new TraceEvent
+            //{
+            //    MetaData = metadata,
+            //    Payload = eventSourceEvent.Payload?.ToArray(),
+            //};
 
-            this.listener.WriteEvent(traceEvent);
+            this.listener.WriteEvent(eventSourceEvent);
         }
 
         protected override void OnEventSourceCreated(EventSource eventSource)

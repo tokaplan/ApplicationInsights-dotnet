@@ -2,12 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Diagnostics.Tracing;
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.DiagnosticsModule;
     using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.Mocks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Moq;
+
     using TestFramework;
 
     [TestClass]
@@ -41,18 +45,11 @@
         [TestMethod]
         public void TestSendingOfEvent()
         {
-            var evt = new TraceEvent
-            {
-                MetaData = new EventMetaData
-                {
-                    EventSourceName = "TelemetryCorrelation",
-                    EventId = 10,
-                    Keywords = 0x20,
-                    Level = EventLevel.Warning,
-                    MessageFormat = "Error occurred at {0}, {1}"
-                },
-                Payload = new[] { "My function", "some failure" }
-            };
+            var evt = EventWrittenEventArgsMock.GetInstance(
+                eventSourceName: "TelemetryCorrelation",
+                level: EventLevel.Warning,
+                message: "Error occurred at {0}, {1}",
+                payload: new ReadOnlyCollection<object>(new List<object>() { "My function", "some failure" }));
 
             this.nonThrottlingPortalSender.Send(evt);
 
@@ -69,17 +66,11 @@
         {
             var diagnosticsInstrumentationKey = Guid.NewGuid().ToString();
             this.nonThrottlingPortalSender.DiagnosticsInstrumentationKey = diagnosticsInstrumentationKey;
-            var evt = new TraceEvent
-            {
-                MetaData = new EventMetaData
-                {
-                    EventId = 10,
-                    Keywords = 0x20,
-                    Level = EventLevel.Warning,
-                    MessageFormat = "Error occurred at {0}, {1}"
-                },
-                Payload = new[] { "My function", "some failure" }
-            };
+
+            var evt = EventWrittenEventArgsMock.GetInstance(
+                level: EventLevel.Warning,
+                message: "Error occurred at {0}, {1}",
+                payload: new ReadOnlyCollection<object>(new List<object>() { "My function", "some failure" }));
 
             this.nonThrottlingPortalSender.Send(evt);
 
@@ -93,17 +84,10 @@
         [TestMethod]
         public void TestSendingEmptyPayload()
         {
-            var evt = new TraceEvent
-            {
-                MetaData = new EventMetaData
-                {
-                    EventId = 10,
-                    Keywords = 0x20,
-                    Level = EventLevel.Warning,
-                    MessageFormat = "Something failed"
-                },
-                Payload = null
-            };
+            var evt = EventWrittenEventArgsMock.GetInstance(
+                level: EventLevel.Warning,
+                message: "Something failed",
+                payload: null);
 
             this.nonThrottlingPortalSender.Send(evt);
 
@@ -124,17 +108,10 @@
                 configuration,
                 this.dontThrottleManager);
 
-            var evt = new TraceEvent
-            {
-                MetaData = new EventMetaData
-                {
-                    EventId = 10,
-                    Keywords = 0x20,
-                    Level = EventLevel.Warning,
-                    MessageFormat = "Something failed"
-                },
-                Payload = null
-            };
+            var evt = EventWrittenEventArgsMock.GetInstance(
+                level: EventLevel.Warning,
+                message: "Something failed",
+                payload: null);
 
             portalSenderWithDefaultCOnfiguration.Send(evt);
         }
