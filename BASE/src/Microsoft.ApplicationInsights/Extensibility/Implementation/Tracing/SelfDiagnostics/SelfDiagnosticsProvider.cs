@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.Tracing;
 
+    using Microsoft.ApplicationInsights.Common.Extensions;
     using Microsoft.ApplicationInsights.Extensibility.Implementation.ConfigString;
     using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
 
@@ -25,12 +26,11 @@
         /// <summary>
         /// Parse the environment variable and determine if self diagnostics logging has been enabled. 
         /// </summary>
-        /// <returns>If the config is valid, will return an instance of the generic class specified. If not, will return null.</returns>
-        /// <exception cref="Exception">
-        /// Throws an exception if the configuration string is invalid. 
-        /// This is expected to crash the application and provide immediate feedback to the end user if the config is invalid.
-        /// </exception>
-        internal static T EvaluateSelfDiagnosticsConfig<T>() where T : ISelfDiagnosticsFileWriter, new()
+        /// <returns>
+        /// If the config is valid, will return an instance of the generic class specified. 
+        /// If the config is invalid or throws an exception, will return default(T) which is null.
+        /// </returns>
+        public static T EvaluateSelfDiagnosticsConfig<T>() where T : ISelfDiagnosticsFileWriter, new()
         { 
             try
             {
@@ -48,7 +48,9 @@
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to parse Self-Diagnostics config string. You must fix or remove this configuration.", ex);
+                // Internal methods will throw nested exceptions. Here we want to flatten them to a single message and log to ETW.
+                CoreEventSource.Log.SelfDiagnosticsParseError(ex.FlattenMessages());
+                return default(T);
             }
         }
 
@@ -68,7 +70,6 @@
             catch (Exception ex)
             {
                 string message = "There was an error parsing the Self-Diagnostics Configuration String: " + ex.Message;
-                CoreEventSource.Log.SelfDiagnosticsParseError(message);
                 throw new ArgumentException(message, ex);
             }
 
@@ -79,8 +80,7 @@
             else
             {
                 string message = Invariant($"Self-Diagnostics Configuration string is invalid. Missing key '{KeyDestination}'");
-                CoreEventSource.Log.SelfDiagnosticsParseError(message);
-                throw new Exception(message);
+                throw new ArgumentException(message);
             }
         }
 
