@@ -9,20 +9,28 @@
         private SDEventListener eventListener;
         private bool disposedValue;
 
-        public void Initialize(string level, string fileDirectory)
+        public void Initialize(string level, string fileDirectory, long maxFileSizeBytes)
         {
-            string fileName = FileHelper.GenerateFileName();
+            if (string.IsNullOrWhiteSpace(fileDirectory))
+            {
+                throw new ArgumentNullException(nameof(fileDirectory));
+            }
+
 
             if (!Enum.TryParse(level, out EventLevel eventLevel))
             {
                 eventLevel = SelfDiagnosticsProvider.DefaultLevel;
             }
 
-            if (IsValidLogsFolder(fileDirectory, fileName, out string fullLogPath)
-                || IsValidLogsFolder(SelfDiagnosticsProvider.DefaultDirectory, fileName, out fullLogPath))
+            // TODO: THIS CAN BE LARGELY REMOVED BY MOVING VALIDATION INTO THE PROVIDER.
+            string expandedDirectory = Environment.ExpandEnvironmentVariables(fileDirectory);
+            if (IsValidLogsDirectory(expandedDirectory))
             {
-                WriteFileHeader(fullLogPath);
-                this.eventListener = new SDEventListener(eventLevel, fullLogPath);
+                this.eventListener = new SDEventListener(eventLevel, new FileWriter(expandedDirectory, maxFileSizeBytes));
+            }
+            else if(IsValidLogsDirectory(SelfDiagnosticsProvider.DefaultDirectory))
+            {
+                this.eventListener = new SDEventListener(eventLevel, new FileWriter(SelfDiagnosticsProvider.DefaultDirectory, maxFileSizeBytes));
             }
             else
             {
@@ -50,32 +58,13 @@
             }
         }
 
-        private static void WriteFileHeader(string logFilePath)
-        {
-            string[] lines =
-            {
-                ".NET SDK version: " + SdkVersionUtils.GetSdkVersion(string.Empty),
-                string.Empty,
-            };
-
-            File.WriteAllLines(logFilePath, lines);
-        }
-
-        private static bool IsValidLogsFolder(string fileDirectory, string fileName, out string fullLogPath)
+        private static bool IsValidLogsDirectory(string logDirectory)
         {
             bool result = false;
-            fullLogPath = null;
             try
             {
-                if (!string.IsNullOrWhiteSpace(fileDirectory) && !string.IsNullOrWhiteSpace(fileName))
-                {
-                    string expandedDirectory = Environment.ExpandEnvironmentVariables(fileDirectory);
-                    var logsDirectory = new DirectoryInfo(expandedDirectory);
-                    FileHelper.TestDirectoryPermissions(logsDirectory);
-
-                    fullLogPath = Path.Combine(expandedDirectory, fileName);
-                    result = true;
-                }
+                FileHelper.TestDirectoryPermissions(new DirectoryInfo(logDirectory));
+                result = true;
             }
             catch (Exception)
             {

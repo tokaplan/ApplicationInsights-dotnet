@@ -1,7 +1,6 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.SelfDiagnostics
 {
     using System;
-    using System.Diagnostics;
     using System.Diagnostics.Tracing;
     using System.Globalization;
     using System.IO;
@@ -13,14 +12,14 @@
 
     internal class SDEventListener : EventListener
     {
-        private readonly object lockObj = new object();
-        private readonly string logFilePath;
         private readonly EventLevel level;
+        private readonly FileWriter fileWriter;
 
-        public SDEventListener(EventLevel level, string logFilePath)
+        public SDEventListener(EventLevel level, FileWriter fileWriter)//string logFilePath)
         {
             this.level = level;
-            this.logFilePath = logFilePath;
+            //this.logFilePath = logFilePath;
+            this.fileWriter = fileWriter;
         }
 
         protected override void OnEventWritten(EventWrittenEventArgs eventData)
@@ -31,25 +30,26 @@
 
             var message = Invariant($"{DateTime.UtcNow.ToInvariantString("o")}: {eventData.Level}: {messageBody}");
 
-            try
-            {
-                lock (this.lockObj)
-                {
-                    FileInfo file = new FileInfo(this.logFilePath);
-                    using (Stream stream = file.Open(FileMode.OpenOrCreate))
-                    {
-                        using (StreamWriter writer = new StreamWriter(stream))
-                        {
-                            stream.Position = stream.Length;
-                            writer.WriteLine(message);
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // no op
-            }
+            fileWriter.WriteLine(message);
+            //try
+            //{
+            //    lock (this.lockObj)
+            //    {
+            //        FileInfo file = new FileInfo(this.logFilePath);
+            //        using (Stream stream = file.Open(FileMode.OpenOrCreate))
+            //        {
+            //            using (StreamWriter writer = new StreamWriter(stream))
+            //            {
+            //                stream.Position = stream.Length;
+            //                writer.WriteLine(message);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    // no op
+            //}
         }
 
         /// <summary>
