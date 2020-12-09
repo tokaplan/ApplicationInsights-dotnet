@@ -243,7 +243,12 @@
 
             this.onUpdatedServiceEndpoint?.Invoke(this.serviceClient.CurrentServiceUri);
 
-            return this.DetermineBackOffs();
+            var backoff = this.DetermineBackOffs();
+
+            Environment.SetEnvironmentVariable("SDK_state_interval", backoff.TotalMilliseconds.ToString(), EnvironmentVariableTarget.Process);
+            Environment.SetEnvironmentVariable("SDK_state_collecting", this.IsCollectingData.ToString(), EnvironmentVariableTarget.Process);
+
+            return backoff;
         }
 
         private void UpdateConfiguration(CollectionConfigurationInfo configurationInfo)

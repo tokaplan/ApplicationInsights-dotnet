@@ -406,8 +406,11 @@
 
             // create the default production implementation of the service client with the best service endpoint we could get
             CloudContext cloudContext = GetCloudContext(configuration);
-            string instanceName = string.IsNullOrWhiteSpace(cloudContext?.RoleInstance) ? Environment.MachineName : cloudContext.RoleInstance;
-            string roleName = cloudContext?.RoleName ?? string.Empty;
+
+            var split = AppDomain.CurrentDomain.FriendlyName.Split(new string[] {"###"}, StringSplitOptions.None);
+            string instanceName = split[0];
+            string roleName = split[1];
+            string serverId = split[2];
             string streamId = GetStreamId();
             var assemblyVersion = SdkVersionUtils.GetSdkVersion(null);
             bool isWebApp = PerformanceCounterUtility.IsWebAppRunningInAzure();
@@ -417,7 +420,7 @@
                 instanceName,
                 roleName,
                 streamId,
-                this.ServerId,
+                serverId,
                 assemblyVersion,
                 this.timeProvider,
                 isWebApp,
